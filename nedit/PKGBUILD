@@ -1,0 +1,36 @@
+# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+pkgname=nedit-qtify
+_pkgname=nedit
+pkgver=5.7
+pkgrel=1
+pkgdesc="Classic Motif programmer's text editor built natively against Qt 6 via motif-on-qt"
+arch=('x86_64')
+url="https://sourceforge.net/projects/nedit/"
+license=('GPL-2.0-or-later')
+depends=('qt6-base')
+makedepends=('motif-on-qt' 'pkgconf')
+provides=('nedit')
+conflicts=('nedit')
+source=("https://downloads.sourceforge.net/project/nedit/nedit-source/${_pkgname}-${pkgver}-src.tar.gz")
+sha256sums=('SKIP')
+
+prepare() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    # Ensure NEdit uses standard CFLAGS/LIBS from the environment rather than hardcoded /usr/X11R6 paths
+    sed -i 's|-I/usr/X11R6/include||g; s|-L/usr/X11R6/lib||g' makefiles/Makefile.linux
+}
+
+build() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+
+    # Build NEdit under motif-on-qt-env so X11, Xt, and Xm resolve to libmotif-on-qt.a
+    motif-on-qt-env make linux
+}
+
+package() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    install -Dm755 source/nedit "${pkgdir}/usr/bin/nedit"
+    install -Dm755 source/nc "${pkgdir}/usr/bin/nedit-client"
+    install -Dm644 doc/nedit.man "${pkgdir}/usr/share/man/man1/nedit.1"
+    install -Dm644 doc/nc.man "${pkgdir}/usr/share/man/man1/nedit-client.1"
+}

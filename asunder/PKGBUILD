@@ -1,0 +1,36 @@
+# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+pkgname=asunder-qtify
+_pkgname=asunder
+pkgver=3.0.1
+pkgrel=1
+pkgdesc="GTK2 CD ripper and encoder built natively against Qt 6 via gtk-made-qt"
+arch=('x86_64')
+url="http://littlesvr.ca/asunder/"
+license=('GPL-2.0-or-later')
+depends=('qt6-base' 'glib2' 'cairo' 'pango' 'libcddb' 'cdparanoia')
+makedepends=('gtk-made-qt' 'intltool' 'pkgconf')
+optdepends=(
+    'lame: MP3 encoding'
+    'vorbis-tools: Ogg Vorbis encoding'
+    'flac: FLAC encoding'
+    'opus-tools: Opus encoding'
+    'wavpack: WavPack encoding'
+)
+provides=('asunder')
+conflicts=('asunder')
+source=("http://littlesvr.ca/asunder/releases/${_pkgname}-${pkgver}.tar.bz2")
+sha256sums=('SKIP')
+
+build() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+
+    # Configure and build under the gtk-made-qt environment wrapper
+    # which redirects pkg-config and linker flags to libgtk-made-qt.a
+    gtk-made-qt-env ./configure --prefix=/usr
+    gtk-made-qt-env make
+}
+
+package() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    make DESTDIR="${pkgdir}" install
+}
