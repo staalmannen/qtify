@@ -1,0 +1,4 @@
+usr/bin
+usr/include
+usr/lib/*/gtk-made-qt
+usr/lib/*/pkgconfig

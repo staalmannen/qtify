@@ -1,0 +1,14 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: xpdf (xpopple)
+Source: https://tracker.debian.org/pkg/xpdf
+
+Files: *
+Copyright: 1996-2014 Glyph & Cog, LLC
+           Adam Sampson and the Debian xpdf maintainers
+License: GPL-2 or GPL-3
+ On Debian systems the full texts are in /usr/share/common-licenses/GPL-2
+ and /usr/share/common-licenses/GPL-3.
+
+Files: debian/*
+Copyright: 2026 qtify contributors
+License: CC0-1.0

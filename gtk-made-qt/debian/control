@@ -1,0 +1,45 @@
+Source: gtk-made-qt
+Section: libs
+Priority: optional
+Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+Build-Depends: debhelper-compat (= 13),
+               cmake,
+               pkgconf | pkg-config,
+               qt6-base-dev,
+               libglib2.0-dev,
+               libcairo2-dev,
+               libpango1.0-dev
+Standards-Version: 4.6.2
+Homepage: https://github.com/staalmannen/gtk-made-qt
+Rules-Requires-Root: no
+
+Package: libgtk-made-qt0
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GTK 1.2/2/3/4 C API on Qt 6 - shared library
+ GTK made Qt implements the GTK C API on Qt, so GTK programs compile
+ unmodified as plain C and run as Qt applications, without GTK.
+ .
+ This package has the shared library, used by programs whose plugins call
+ GTK themselves (XMMS, for example). Most programs link the static library
+ from gtk-made-qt-dev and do not need it.
+
+Package: gtk-made-qt-dev
+Section: libdevel
+Architecture: any
+Depends: libgtk-made-qt0 (= ${binary:Version}),
+         qt6-base-dev,
+         libglib2.0-dev,
+         libcairo2-dev,
+         libpango1.0-dev,
+         pkgconf | pkg-config,
+         ${misc:Depends}
+Description: GTK 1.2/2/3/4 C API on Qt 6 - development files
+ GTK made Qt implements the GTK C API on Qt, so GTK programs compile
+ unmodified as plain C and run as Qt applications, without GTK.
+ .
+ This package has the headers, the static library, pkg-config files for
+ gtk+-2.0, gtk+-3.0, gtk4 and gtk+ (1.2), gtk-config and the
+ gtk-made-qt-env wrapper: run a program's build under gtk-made-qt-env to
+ build it against GTK made Qt.

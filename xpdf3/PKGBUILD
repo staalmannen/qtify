@@ -1,3 +1,4 @@
+# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
 pkgname=xpdf-qtify
 _debver=3.04+git20240202
 pkgver=3.04.git20240202

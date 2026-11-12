@@ -1,0 +1,3 @@
+# Upstream source for tools/build-deb.sh
+SOURCE_URL=https://github.com/tarot231/leafpad/archive/3b1a2c2a1fad10f7f03e9b240bb6fa425aed5417.tar.gz
+SOURCE_SHA256=a57774ef72694758fe61e8a9cc151c394d3a2a3c5c9cf3ff3c2d874bb1926115

@@ -1,0 +1,22 @@
+Source: leafpad-qtify
+Section: editors
+Priority: optional
+Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+Build-Depends: debhelper-compat (= 13),
+               gtk-made-qt-dev,
+               intltool,
+               pkgconf | pkg-config
+Standards-Version: 4.6.2
+Homepage: https://github.com/tarot231/leafpad
+Rules-Requires-Root: no
+
+Package: leafpad-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: leafpad
+Conflicts: leafpad
+Replaces: leafpad
+Description: Leafpad, the GTK 2 text editor, built on Qt
+ Leafpad is a simple, fast text editor. This package builds its unmodified
+ GTK 2 source against GTK made Qt: it runs as a Qt application without
+ GTK 2.

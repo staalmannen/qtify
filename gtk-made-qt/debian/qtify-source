@@ -1,0 +1,3 @@
+# Upstream source for tools/build-deb.sh (and the other recipes' pins)
+SOURCE_URL=https://github.com/staalmannen/gtk-made-qt/archive/ff8aba1520c15b381ae7c4b3155697d69be05fd9.tar.gz
+SOURCE_SHA256=aa29e1cbf29f695d673fd80756492dc6fedd7ac8d5b7cbcd9f2d92170e9958cd

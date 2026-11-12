@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# debhelper only sets its flags when they are unset; motif-on-qt-env puts
+# its own -I and -L in front of these
+export CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	motif-on-qt-env dh_auto_configure -- --sysconfdir=/etc
+
+override_dh_auto_build:
+	motif-on-qt-env dh_auto_build
+
+# -v prints the version and exits with status 99 (xpdf's convention)
+override_dh_auto_test:
+	QT_QPA_PLATFORM=offscreen ./xpdf/xpdf -v 2>&1 | grep -q 'xpdf version 3'

@@ -1,0 +1,22 @@
+Source: xpdf-qtify
+Section: text
+Priority: optional
+Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+Build-Depends: debhelper-compat (= 13),
+               motif-on-qt-dev,
+               libpoppler-private-dev,
+               pkgconf | pkg-config
+Standards-Version: 4.6.2
+Homepage: https://tracker.debian.org/pkg/xpdf
+Rules-Requires-Root: no
+
+Package: xpdf-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: xpdf
+Conflicts: xpdf
+Replaces: xpdf
+Description: xpdf 3 (the Motif PDF viewer, Poppler based) built on Qt
+ xpdf 3.04 as Debian maintains it (xpopple: the xpdf viewer on Poppler),
+ built from its unmodified Motif source against Motif on Qt: it runs as a
+ Qt application without libXm, libXt or libX11.

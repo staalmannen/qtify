@@ -1,0 +1,42 @@
+# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+pkgname=gtk-made-qt
+pkgver=0.2.0_git20261112
+pkgrel=0
+_commit=ff8aba1520c15b381ae7c4b3155697d69be05fd9
+pkgdesc="The GTK 1.2/2/3/4 C API on Qt 6: build GTK programs that run without GTK"
+url="https://github.com/staalmannen/gtk-made-qt"
+arch="all"
+license="LGPL-2.1-or-later"
+depends_dev="qt6-qtbase-dev glib-dev cairo-dev pango-dev pkgconf"
+makedepends="cmake samurai $depends_dev"
+subpackages="$pkgname-dev"
+source="$pkgname-$_commit.tar.gz::https://github.com/staalmannen/gtk-made-qt/archive/$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
+# the tests need the examples, which are not built here
+options="!check"
+
+build() {
+	# the static archive must not hold LTO objects
+	cmake -B build -G Ninja \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DGTKQT_BUILD_EXAMPLES=OFF \
+		-DGTKQT_BUILD_TESTS=OFF
+	cmake --build build
+}
+
+package() {
+	DESTDIR="$pkgdir" cmake --install build
+	rm -rf "$pkgdir"/usr/share/doc
+}
+
+dev() {
+	default_dev
+	# the static library, linker scripts, pkg-config files and gtk-config
+	amove usr/lib/gtk-made-qt usr/bin/gtk-made-qt-env
+}
+
+sha512sums="
+195a8491d083e600fa0872243e4530cc3cb9e391fb3121dc8b85e06c557d0485648871ecac50a8fc276024601fe414cb43ea5f2892b8954ea4b4c3808faef9ac  gtk-made-qt-ff8aba1520c15b381ae7c4b3155697d69be05fd9.tar.gz
+"

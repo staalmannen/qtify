@@ -1,0 +1,3 @@
+# Upstream source for tools/build-deb.sh
+SOURCE_URL=https://github.com/deepfire/xmms/archive/5847897230da018d93cd9833695f944ece96587b.tar.gz
+SOURCE_SHA256=3963f5e2c0c9b55598dff2e0e86a4b02cae952c46a82f43a62421b22b32d05d1
