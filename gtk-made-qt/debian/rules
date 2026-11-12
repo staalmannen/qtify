@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+# The static archive must not hold LTO objects: programs link it with
+# whatever compiler they use.
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all optimize=-lto
+
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DGTKQT_BUILD_EXAMPLES=OFF -DGTKQT_BUILD_TESTS=OFF

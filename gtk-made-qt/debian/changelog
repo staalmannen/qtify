@@ -1,0 +1,5 @@
+gtk-made-qt (0.2.0+git20261112.ff8aba1-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/gtk-made-qt at ff8aba1.
+
+ -- staalmannen <https://github.com/staalmannen/qtify>  Thu, 12 Nov 2026 12:00:00 +0000

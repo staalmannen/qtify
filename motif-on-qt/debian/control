@@ -1,0 +1,24 @@
+Source: motif-on-qt
+Section: libdevel
+Priority: optional
+Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+Build-Depends: debhelper-compat (= 13),
+               cmake,
+               pkgconf | pkg-config,
+               qt6-base-dev
+Standards-Version: 4.6.2
+Homepage: https://github.com/staalmannen/qtmotifextension
+Rules-Requires-Root: no
+
+Package: motif-on-qt-dev
+Architecture: any
+Depends: qt6-base-dev, pkgconf | pkg-config, ${misc:Depends}
+Description: Motif, Xt and Xlib C APIs on Qt 6 - development files
+ Motif on Qt implements the Xt/Motif C API, and the part of Xlib Motif
+ programs use, on Qt 6: Motif programs compile unmodified and run as Qt
+ applications, without X11 or libXm.
+ .
+ This package has the headers, the static library, linker scripts and
+ pkg-config files for -lXm -lXt -lX11, and the motif-on-qt-env wrapper:
+ run a program's build under motif-on-qt-env to build it against Motif on
+ Qt.

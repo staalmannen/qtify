@@ -1,0 +1,63 @@
+# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+pkgname=xmms-qtify
+pkgver=1.2.11
+pkgrel=0
+_commit=5847897230da018d93cd9833695f944ece96587b
+pkgdesc="XMMS, the GTK 1.2 audio player, built on Qt with GTK made Qt"
+url="https://github.com/deepfire/xmms"
+arch="all"
+license="GPL-2.0-or-later"
+makedepends="gtk-made-qt-dev alsa-lib-dev libvorbis-dev libogg-dev pkgconf"
+provides="xmms"
+replaces="xmms"
+subpackages="$pkgname-doc"
+source="xmms-$_commit.tar.gz::https://github.com/deepfire/xmms/archive/$_commit.tar.gz
+	xmms.desktop
+	"
+builddir="$srcdir/xmms-$_commit"
+
+prepare() {
+	default_prepare
+	# its 2007 config.sub does not know musl
+	update_config_sub
+	update_config_guess
+	# time stamps as in the release tarball, so make does not rerun automake 1.x
+	find . -exec touch -h -d '2001-01-01 00:00' {} +
+	touch -d '2001-01-01 00:01' aclocal.m4
+	touch -d '2001-01-01 00:02' configure $(find . -name Makefile.in -o -name '*.h.in')
+}
+
+build() {
+	# gnu17: GTK 1 era C (unprototyped callbacks, its own bool) is not C23;
+	# no tree vectorizer: GCC 14.2 crashes on the ALSA plugin with -ffast-math
+	CFLAGS="$CFLAGS -std=gnu17 -fno-tree-vectorize" \
+	gtk-made-qt-env --shared ./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--disable-esd \
+		--disable-opengl \
+		--disable-mikmod \
+		--disable-nls \
+		ac_cv_lib_SM_SmcOpenConnection=no
+	gtk-made-qt-env --shared make
+}
+
+check() {
+	# starts, shows its windows and quits
+	HOME="$srcdir/home" QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1500 ./xmms/xmms
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+	find "$pkgdir" -name '*.la' -delete
+	rm -f "$pkgdir"/usr/lib/libxmms.a
+	install -Dm644 "$srcdir"/xmms.desktop "$pkgdir"/usr/share/applications/xmms.desktop
+}
+
+sha512sums="
+9851bc9616ad643cb6fcd12dc56c9a0feae02f57ed6c90d9ddb9c5c6b686edfd5c613efb0dfbb7036a9a72cdfa18de76944c33b58ca0795fec99a79a36944627  xmms-5847897230da018d93cd9833695f944ece96587b.tar.gz
+dd278bf6d75a124c520cf10724a827da5120eb9a80c175c06170c86dbf8cf87155f919b9d7b27907f328a458f0a58ec960d5a7e25012f32227a07457ca0f9218  xmms.desktop
+"

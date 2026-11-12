@@ -1,0 +1,27 @@
+Source: xmms-qtify
+Section: sound
+Priority: optional
+Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+Build-Depends: debhelper-compat (= 13),
+               gtk-made-qt-dev,
+               libasound2-dev,
+               libvorbis-dev,
+               libogg-dev,
+               pkgconf | pkg-config
+Standards-Version: 4.6.2
+Homepage: https://github.com/deepfire/xmms
+Rules-Requires-Root: no
+
+Package: xmms-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: xmms
+Conflicts: xmms
+Replaces: xmms
+Description: XMMS 1.2.11, the GTK 1.2 audio player, built on Qt
+ The X MultiMedia System, the classic skinned audio player, built from its
+ unmodified GTK 1.2 source against GTK made Qt: it runs as a Qt
+ application (X11 or Wayland) without GTK 1.2 or libX11.
+ .
+ Includes the ALSA, OSS and disk writer output plugins; MP3, Ogg Vorbis,
+ WAV, CD audio and tone generator input; effect and visualization plugins.

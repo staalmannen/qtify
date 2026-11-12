@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: xmms
+Source: https://github.com/deepfire/xmms (the 1.2.11 release from xmms.org)
+
+Files: *
+Copyright: 1997-2007 The XMMS team (see AUTHORS)
+License: GPL-2+
+ On Debian systems the full text is in /usr/share/common-licenses/GPL-2.
+
+Files: debian/*
+Copyright: 2026 qtify contributors
+License: CC0-1.0

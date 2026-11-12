@@ -1,0 +1,43 @@
+# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+pkgname=leafpad-qtify
+pkgver=0.8.19
+pkgrel=0
+_commit=3b1a2c2a1fad10f7f03e9b240bb6fa425aed5417
+pkgdesc="Leafpad (the GTK 2 text editor) built on Qt with GTK made Qt"
+url="https://github.com/tarot231/leafpad"
+arch="all"
+license="GPL-2.0-or-later"
+makedepends="gtk-made-qt-dev autoconf automake intltool gettext-dev pkgconf"
+provides="leafpad"
+replaces="leafpad"
+subpackages="$pkgname-doc $pkgname-lang"
+source="leafpad-$_commit.tar.gz::https://github.com/tarot231/leafpad/archive/$_commit.tar.gz"
+builddir="$srcdir/leafpad-$_commit"
+
+prepare() {
+	default_prepare
+	intltoolize --force
+	autoreconf -fi
+}
+
+build() {
+	gtk-made-qt-env ./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man
+	gtk-made-qt-env make
+}
+
+check() {
+	QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1000 ./src/leafpad
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="
+d83debb9a00898e2924b3398f6b12798f83dfd4a0bca02268e24d1c1126807b0b45a0a851aa7771d9205b683db8ed9c998569353c1563b45f166e2522bb066ae  leafpad-3b1a2c2a1fad10f7f03e9b240bb6fa425aed5417.tar.gz
+"

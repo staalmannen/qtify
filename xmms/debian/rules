@@ -1,0 +1,43 @@
+#!/usr/bin/make -f
+# no LTO: the 2007 configure's function checks give false positives with it
+# (it finds BSD's srandomdev on Linux)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all optimize=-lto
+
+# debhelper only sets its flags when they are unset; gtk-made-qt-env puts
+# its own -L in front of these
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+# gnu17: GTK 1 era C (unprototyped callbacks, its own bool) is not C23;
+# no tree vectorizer: GCC 14.2 crashes on the ALSA plugin with -ffast-math
+CFLAGS := $(shell dpkg-buildflags --get CFLAGS) -std=gnu17 -fno-tree-vectorize
+CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+%:
+	dh $@
+
+# XMMS ships its 2007 autotools output; regenerating it needs automake 1.x
+override_dh_autoreconf:
+
+override_dh_auto_configure:
+	# time stamps as in a release tarball, so make does not rerun automake
+	find . -path ./debian -prune -o -exec touch -h -d '2001-01-01 00:00' {} +
+	touch -d '2001-01-01 00:01' aclocal.m4
+	touch -d '2001-01-01 00:02' configure $$(find . -name Makefile.in -o -name '*.h.in')
+	# XMMS's 2007 configure rejects options dh_auto_configure adds (--runstatedir)
+	CFLAGS="$(CFLAGS)" CPPFLAGS="$(CPPFLAGS)" gtk-made-qt-env --shared ./configure \
+		--build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=/usr/share/man \
+		--sysconfdir=/etc --libdir=/usr/lib/$(DEB_HOST_MULTIARCH) \
+		--disable-esd --disable-opengl --disable-mikmod --disable-nls \
+		ac_cv_lib_SM_SmcOpenConnection=no
+
+override_dh_auto_build:
+	gtk-made-qt-env --shared dh_auto_build
+
+# starts, shows its windows and quits
+override_dh_auto_test:
+	HOME=$(CURDIR)/debian/test-home QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1500 ./xmms/xmms
+
+override_dh_auto_install:
+	dh_auto_install
+	find debian/xmms-qtify -name '*.la' -exec rm {} +

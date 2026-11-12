@@ -1,0 +1,6 @@
+xmms-qtify (1.2.11-1) unstable; urgency=medium
+
+  * XMMS 1.2.11 (the release tarball as imported in deepfire/xmms, 5847897)
+    built against GTK made Qt.
+
+ -- staalmannen <https://github.com/staalmannen/qtify>  Thu, 12 Nov 2026 12:00:00 +0000

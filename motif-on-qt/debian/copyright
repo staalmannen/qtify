@@ -1,0 +1,22 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: motif-on-qt
+Source: https://github.com/staalmannen/qtmotifextension
+
+Files: *
+Copyright: 2026 motif-on-qt contributors
+License: LGPL-2.1+
+ On Debian systems the full text is in /usr/share/common-licenses/LGPL-2.1.
+
+Files: include/Xm/*
+Copyright: The Open Group, ICS and others (Motif 2.3.8)
+License: LGPL-2.1+
+ See the copyright notices in the files.
+
+Files: include/X11/*
+Copyright: The Open Group and others (X Window System, Xt)
+License: MIT
+ See the copyright notices in the files.
+
+Files: debian/*
+Copyright: 2026 qtify contributors
+License: CC0-1.0
