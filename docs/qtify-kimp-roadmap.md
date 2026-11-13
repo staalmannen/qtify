@@ -46,6 +46,7 @@ This roadmap outlines a phased strategy for populating the `qtify` repository us
 
 ## Phase 4: The "KIMP 2.10" Milestone (GIMP 2.10 on GTK 2)
 **Goal:** Recompile GIMP 2.10 against Qt 6 without modifying GIMP's upstream C source code. Targeting 2.10 first avoids GTK 3 CSS engine dependencies while exercising the core `libgimpwidgets` stack.
+Historical KIMP from 1998: https://krita.org/en/posts/2009/the-history-of-kimageshop-krayon-krita/
 
 ### Critical Subsystem Checklist for GIMP 2.10
 1. **`GdkPixbuf` Completeness:** GIMP relies heavily on `GdkPixbuf` for tool icons, brushes, patterns, cursors, and splash screens (scaling, compositing, subpixbufs, and PNG/XPM loaders).
