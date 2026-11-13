@@ -1,8 +1,8 @@
 # RPM spec for Fedora and openSUSE.
 # Build: rpmbuild -ba --undefine=_disable_source_fetch motif-on-qt.spec
-%global commit bc5b3ed65994b163cdf97638520f5f1afb6007ea
+%global commit 249a95f10befb10f7c6b6b76587949dbd1abaa16
 %global shortcommit %(echo %{commit} | cut -c1-7)
-%global snapdate 20261112
+%global snapdate 20261113
 # The static archive must not hold LTO objects: programs link it with
 # whatever compiler they use.
 %global _lto_cflags %{nil}
@@ -64,5 +64,5 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/pkgconfig/motif-on-qt.pc
 
 %changelog
-* Thu Nov 12 2026 staalmannen <https://github.com/staalmannen/qtify> - 0.1+git20261112.bc5b3ed-1
-- Snapshot of qtmotifextension at bc5b3ed
+* Fri Nov 13 2026 staalmannen <https://github.com/staalmannen/qtify> - 0.1+git20261113.249a95f-1
+- Snapshot of qtmotifextension at 249a95f

@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: nedit
+Source: https://sourceforge.net/projects/nedit/
+
+Files: *
+Copyright: 1997-2017 Mark Edel, the NEdit developers, Universities Research
+           Association, Inc.
+License: GPL-2+
+ On Debian systems the full text is in /usr/share/common-licenses/GPL-2.
+
+Files: debian/*
+Copyright: 2026 qtify contributors
+License: CC0-1.0

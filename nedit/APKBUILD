@@ -1,0 +1,44 @@
+# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+pkgname=nedit-qtify
+pkgver=5.7
+pkgrel=0
+pkgdesc="NEdit, the classic Motif programmer's editor, built on Qt with Motif on Qt"
+url="https://sourceforge.net/projects/nedit/"
+arch="all"
+license="GPL-2.0-or-later"
+makedepends="motif-on-qt-dev perl"
+provides="nedit"
+replaces="nedit"
+subpackages="$pkgname-doc"
+source="https://downloads.sourceforge.net/project/nedit/nedit-source/nedit-$pkgver-src.tar.gz
+	nedit.desktop
+	"
+builddir="$srcdir/nedit-$pkgver"
+
+build() {
+	# NEdit's makefiles set CFLAGS and LIBS themselves: the paths from
+	# motif-on-qt-env go on the command line. gnu17: NEdit's code is not C23.
+	eval "$(motif-on-qt-env)"
+	make linux CFLAGS="$CFLAGS -std=gnu17 $CPPFLAGS -DUSE_DIRENT -DUSE_LPR_PRINT_CMD" \
+		LIBS="$LDFLAGS -lXm -lXt -lX11 -lm"
+	pod2man --section=1 --center=NEdit --release="NEdit $pkgver" doc/nedit.pod > nedit.1
+	pod2man --section=1 --center=NEdit --release="NEdit $pkgver" --name=nedit-nc doc/nc.pod > nedit-nc.1
+}
+
+check() {
+	HOME="$srcdir/home" QT_QPA_PLATFORM=offscreen MOTIFQT_AUTOQUIT=1500 ./source/nedit
+}
+
+package() {
+	# no install target; nc is netcat's name: NEdit's client is nedit-nc
+	install -Dm755 source/nedit "$pkgdir"/usr/bin/nedit
+	install -Dm755 source/nc "$pkgdir"/usr/bin/nedit-nc
+	install -Dm644 nedit.1 "$pkgdir"/usr/share/man/man1/nedit.1
+	install -Dm644 nedit-nc.1 "$pkgdir"/usr/share/man/man1/nedit-nc.1
+	install -Dm644 "$srcdir"/nedit.desktop "$pkgdir"/usr/share/applications/nedit.desktop
+}
+
+sha512sums="
+cf242d2f8eea4c78649dbeb741f545a3dc8ffaf5bb36239794a4b2635420e5445fa1c77472add79c05ec081d71a0b9df4431f48db365a71692e43869fd4e7932  nedit-5.7-src.tar.gz
+4955a15f60786ebc6c0483060adc48b43c3745c0488566b927bbf8986b5b6f34a8cd52e2d15dffe862ba7a5ac9df21497f240fb7adc6f004389b4d493acb5abe  nedit.desktop
+"

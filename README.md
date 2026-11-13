@@ -11,12 +11,12 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 | Package | Built from | Arch | Alpine | Chimera | Fedora / openSUSE | Debian / Ubuntu |
 | --- | --- | --- | --- | --- | --- | --- |
 | [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot ff8aba1 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
-| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot bc5b3ed (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
+| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 249a95f (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
 | [leafpad](leafpad) (GTK 2) | 0.8.19 | `PKGBUILD` | `APKBUILD` | `chimera/` | `leafpad-qtify.spec` | `debian/` |
 | [xmms](xmms) (GTK 1.2) | 1.2.11 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xmms-qtify.spec` | `debian/` |
 | [xpdf3](xpdf3) (Motif) | 3.04+git20240202 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xpdf-qtify.spec` | `debian/` |
 | [asunder](asunder) (GTK 2) | 3.0.1 | `PKGBUILD` | | | | |
-| [nedit](nedit) (Motif) | 5.7 | `PKGBUILD` | | | | |
+| [nedit](nedit) (Motif) | 5.7 | `PKGBUILD` | `APKBUILD` | `chimera/` | `nedit-qtify.spec` | `debian/` |
 
 Applications are named `<program>-qtify` and provide / conflict with the
 original package. The libraries come in two parts where the distribution
@@ -40,7 +40,10 @@ static library and the `gtk-made-qt-env` / `motif-on-qt-env` build wrappers.
 - **Chimera**: written for cports, not yet built with cbuild.
 - XMMS and both libraries also build with GCC 14 and clang 18 (C code of
   2007 meets their new default errors; see the notes in the recipes).
-- asunder and nedit: PKGBUILDs only, not built yet.
+- NEdit: built with every recipe here (and with clang 18 and GCC 14 in C23
+  mode, which is why the recipes pass `-std=gnu17`), edited, saved, tabs
+  and dialogs used in scripted headless runs.
+- asunder: PKGBUILD only, not built yet.
 
 ## Building
 

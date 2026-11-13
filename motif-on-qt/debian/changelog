@@ -1,5 +1,5 @@
-motif-on-qt (0.1+git20261112.bc5b3ed-1) unstable; urgency=medium
+motif-on-qt (0.1+git20261113.249a95f-1) unstable; urgency=medium
 
-  * Snapshot of https://github.com/staalmannen/qtmotifextension at bc5b3ed.
+  * Snapshot of https://github.com/staalmannen/qtmotifextension at 249a95f.
 
- -- staalmannen <https://github.com/staalmannen/qtify>  Thu, 12 Nov 2026 12:00:00 +0000
+ -- staalmannen <https://github.com/staalmannen/qtify>  Fri, 13 Nov 2026 12:00:00 +0000

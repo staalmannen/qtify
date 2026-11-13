@@ -1,0 +1,22 @@
+Source: nedit-qtify
+Section: editors
+Priority: optional
+Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+Build-Depends: debhelper-compat (= 13),
+               motif-on-qt-dev,
+               perl
+Standards-Version: 4.6.2
+Homepage: https://sourceforge.net/projects/nedit/
+Rules-Requires-Root: no
+
+Package: nedit-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: nedit
+Conflicts: nedit
+Replaces: nedit
+Description: NEdit, the classic Motif programmer's editor, built on Qt
+ NEdit 5.7 built from its unmodified Motif source against Motif on Qt:
+ it runs as a Qt application (X11 or Wayland) without libXm, libXt or
+ libX11. Syntax highlighting, tabs, macros, shell commands and the
+ nedit-nc client are included.

@@ -1,0 +1,33 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+CFLAGS := $(shell dpkg-buildflags --get CFLAGS)
+CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
+LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+%:
+	dh $@
+
+# NEdit's makefiles set CFLAGS and LIBS themselves: the paths from
+# motif-on-qt-env go on the command line. gnu17: NEdit's code is not C23.
+override_dh_auto_build:
+	eval "$$(CPPFLAGS='$(CPPFLAGS)' LDFLAGS='$(LDFLAGS)' motif-on-qt-env)" && \
+	$(MAKE) linux CFLAGS="$(CFLAGS) -std=gnu17 $$CPPFLAGS -DUSE_DIRENT -DUSE_LPR_PRINT_CMD" \
+		LIBS="$$LDFLAGS -lXm -lXt -lX11 -lm"
+	pod2man --section=1 --center=NEdit --release="NEdit 5.7" doc/nedit.pod > nedit.1
+	pod2man --section=1 --center=NEdit --release="NEdit 5.7" --name=nedit-nc doc/nc.pod > nedit-nc.1
+
+# starts, shows its window and quits
+override_dh_auto_test:
+	HOME=$(CURDIR)/debian/test-home QT_QPA_PLATFORM=offscreen MOTIFQT_AUTOQUIT=1500 ./source/nedit
+
+# NEdit has no install target; its client nc is netcat's name: nedit-nc
+override_dh_auto_install:
+	install -Dm755 source/nedit debian/nedit-qtify/usr/bin/nedit
+	install -Dm755 source/nc debian/nedit-qtify/usr/bin/nedit-nc
+	install -Dm644 nedit.1 debian/nedit-qtify/usr/share/man/man1/nedit.1
+	install -Dm644 nedit-nc.1 debian/nedit-qtify/usr/share/man/man1/nedit-nc.1
+
+override_dh_auto_clean:
+	$(MAKE) clean || true
+	rm -f nedit.1 nedit-nc.1

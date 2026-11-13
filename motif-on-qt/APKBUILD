@@ -1,8 +1,8 @@
 # Maintainer: staalmannen <https://github.com/staalmannen/qtify>
 pkgname=motif-on-qt
-pkgver=0.1_git20261112
+pkgver=0.1_git20261113
 pkgrel=0
-_commit=bc5b3ed65994b163cdf97638520f5f1afb6007ea
+_commit=249a95f10befb10f7c6b6b76587949dbd1abaa16
 pkgdesc="The Motif, Xt and Xlib C APIs on Qt 6: build Motif programs without X11 or libXm"
 url="https://github.com/staalmannen/qtmotifextension"
 arch="all"
@@ -36,5 +36,5 @@ dev() {
 }
 
 sha512sums="
-8907736d34bfb7f03435c78bf39df87cdfa303c4e17d3cdb6d91555f88589f8521f61f2eea58f6b687dda2ada2bd45acbef91bc10536ebfc8b8630ec5a95a879  qtmotifextension-bc5b3ed65994b163cdf97638520f5f1afb6007ea.tar.gz
+5fa251173ee965a6dbf7b2989da806b833b7e4496b37f9220822ccb58faf0692186a17978b20875b4589e4942ed34e79000fddc0ab925b3f65109738cc655360  qtmotifextension-249a95f10befb10f7c6b6b76587949dbd1abaa16.tar.gz
 "
