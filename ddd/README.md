@@ -16,8 +16,12 @@ Notes on the recipes:
 - The check runs `ddd --version`. That starts the toolkit, reads the
   command line through Xrm and prints the version without a debugger.
 - gdb is a run-time dependency: DDD starts it for the program you debug.
-- Needs motif-on-qt 54dacc6 or newer (Athena widgets, Xpm, converters,
-  `XmIsXxx` class bits, Xrm escapes and command-line specifiers).
+- Chimera: the template turns off the `int` hardening. DDD adds the
+  `INT_MIN` sentinels of an empty graph's region at start-up (an upstream
+  signed overflow that the trap stops, with real Motif too).
+- Needs motif-on-qt 80f6839 or newer (Athena widgets, Xpm, converters,
+  `XmIsXxx` class bits, Xrm escapes, XmText's cursor rules, events for
+  destroyed widgets).
 
 Tested: loading a program, the source window with line numbers, setting a
 breakpoint from the gdb console, running to it (the execution arrow), and a

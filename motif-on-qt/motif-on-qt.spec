@@ -1,8 +1,8 @@
 # RPM spec for Fedora and openSUSE.
 # Build: rpmbuild -ba --undefine=_disable_source_fetch motif-on-qt.spec
-%global commit 54dacc657de15e55f94274c4d454a4f9b69e6225
+%global commit 80f683941783107f408ba88d3aa2f6946d0dbb60
 %global shortcommit %(echo %{commit} | cut -c1-7)
-%global snapdate 202611141521
+%global snapdate 202611141549
 # The static archive must not hold LTO objects: programs link it with
 # whatever compiler they use.
 %global _lto_cflags %{nil}
@@ -66,6 +66,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/pkgconfig/motif-on-qt.pc
 
 %changelog
+* Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 0.1+git202611141549.80f6839-1
+- Snapshot of motif-on-qt at 80f6839 (XmText cursor rules)
+
 * Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 0.1+git202611141521.54dacc6-1
 - Snapshot of motif-on-qt at 54dacc6 (Athena widgets, Xmu and Xpm; DDD support)
 

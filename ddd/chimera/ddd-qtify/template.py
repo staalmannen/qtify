@@ -25,6 +25,9 @@ tool_flags = {
     "LDFLAGS": ["-L/usr/lib/motif-on-qt"],
 }
 env = {"PKG_CONFIG_PATH": "/usr/lib/motif-on-qt/pkgconfig"}
+# DDD adds the INT_MIN sentinels of an empty graph's region (signed
+# overflow at start-up, upstream; the trap would stop it with real Motif too)
+hardening = ["!int"]
 # the static library is not LTO
 options = ["!lto"]
 

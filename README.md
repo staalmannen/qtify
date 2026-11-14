@@ -11,7 +11,7 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 | Package | Built from | Arch | Alpine | Chimera | Fedora / openSUSE | Debian / Ubuntu |
 | --- | --- | --- | --- | --- | --- | --- |
 | [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot 5ebef1c (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
-| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 54dacc6 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
+| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 80f6839 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
 | [leafpad](leafpad) (GTK 2) | 0.8.19 | `PKGBUILD` | `APKBUILD` | `chimera/` | `leafpad-qtify.spec` | `debian/` |
 | [xmms](xmms) (GTK 1.2) | 1.2.11 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xmms-qtify.spec` | `debian/` |
 | [xpdf3](xpdf3) (Motif) | 3.04+git20260802 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xpdf-qtify.spec` | `debian/` |

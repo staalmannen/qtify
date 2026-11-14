@@ -1,7 +1,7 @@
 pkgname = "motif-on-qt"
-pkgver = "0.1_git202611141521"
+pkgver = "0.1_git202611141549"
 pkgrel = 0
-_commit = "54dacc657de15e55f94274c4d454a4f9b69e6225"
+_commit = "80f683941783107f408ba88d3aa2f6946d0dbb60"
 build_style = "cmake"
 configure_args = ["-DMQ_BUILD_EXAMPLES=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -13,7 +13,7 @@ pkgdesc = "Motif, Athena, Xt and Xlib C APIs on Qt 6"
 license = "LGPL-2.1-or-later AND MIT"
 url = "https://github.com/staalmannen/motif-on-qt"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "e0906ec6f5844b63b1cb6689daf9b4533fb447595aa1e0ba8af2aa806661d00b"
+sha256 = "2444af897cfcab71350b8fa539e4263fcf9a74bfb01b6f1229dd02a4c01df1b1"
 # the static archive must not hold LTO bitcode; the tests need the examples
 options = ["!lto", "!check"]
 
