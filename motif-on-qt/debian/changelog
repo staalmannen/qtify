@@ -1,3 +1,17 @@
+motif-on-qt (0.1+git202611141549.80f6839-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/motif-on-qt at 80f6839
+    (XmText cursor rules).
+
+ -- staalmannen <staal1978@gmail.com>  Sat, 14 Nov 2026 15:49:57 +0000
+
+motif-on-qt (0.1+git202611141521.54dacc6-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/motif-on-qt at 54dacc6
+    (Athena widgets, Xmu and Xpm; DDD support).
+
+ -- staalmannen <staal1978@gmail.com>  Sat, 14 Nov 2026 15:21:22 +0000
+
 motif-on-qt (0.1+git202611140924.cfff583-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/motif-on-qt at cfff583 (the

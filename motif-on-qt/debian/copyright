@@ -17,6 +17,12 @@ Copyright: The Open Group and others (X Window System, Xt)
 License: MIT
  See the copyright notices in the files.
 
+Files: src/xaw/* src/xmu/*
+Copyright: The Open Group, Digital Equipment Corporation, XFree86 and others
+ (libXaw 1.0.16, libXmu 1.1.3)
+License: MIT
+ See src/xaw/COPYING and src/xmu/COPYING.
+
 Files: debian/*
 Copyright: 2026 qtify contributors
 License: CC0-1.0

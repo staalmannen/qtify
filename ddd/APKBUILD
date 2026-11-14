@@ -1,0 +1,40 @@
+# Maintainer: staalmannen <staal1978@gmail.com>
+# qtify: https://github.com/staalmannen/qtify
+pkgname=ddd-qtify
+pkgver=3.4.1
+pkgrel=0
+pkgdesc="DDD, the GNU Data Display Debugger (Motif and Athena), built on Qt with Motif on Qt"
+url="https://www.gnu.org/software/ddd/"
+arch="all"
+license="GPL-3.0-or-later"
+depends="gdb"
+makedepends="motif-on-qt-dev ncurses-dev flex bison"
+provides="ddd"
+replaces="ddd"
+subpackages="$pkgname-doc"
+# Debian's copy of the release
+source="https://deb.debian.org/debian/pool/main/d/ddd/ddd_$pkgver.orig.tar.gz"
+builddir="$srcdir/ddd-$pkgver"
+
+build() {
+	# no Xft: it would pull in the system's libX11 (fonts come from Qt)
+	ac_cv_lib_Xft_XftFontOpen=no motif-on-qt-env ./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--mandir=/usr/share/man
+	motif-on-qt-env make
+}
+
+check() {
+	mkdir -p "$srcdir"/home
+	HOME="$srcdir"/home QT_QPA_PLATFORM=offscreen ./ddd/ddd --version | grep -q 'GNU DDD 3.4'
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="
+84dfa5dbbba1033a0fb4e60c6bfacd86f9d9b22f20ab02ada1c1a2abfdac18fe5ef8af25c9519638ae3b9a1d06f4518aec03afff9dbae35e8fd6aab8a6829bef  ddd_3.4.1.orig.tar.gz
+"

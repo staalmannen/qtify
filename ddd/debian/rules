@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+# no Xft: it would pull in the system's libX11 (fonts come from Qt)
+export ac_cv_lib_Xft_XftFontOpen = no
+
+# debhelper only sets its flags when they are unset; motif-on-qt-env puts
+# its own -L in front of these
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+%:
+	dh $@
+
+# the release has a generated configure; keep it
+override_dh_autoreconf:
+
+override_dh_auto_configure:
+	motif-on-qt-env dh_auto_configure
+
+override_dh_auto_build:
+	motif-on-qt-env dh_auto_build
+
+override_dh_auto_test:
+	mkdir -p debian/test-home
+	HOME=$(CURDIR)/debian/test-home QT_QPA_PLATFORM=offscreen ./ddd/ddd --version | grep -q 'GNU DDD 3.4'
