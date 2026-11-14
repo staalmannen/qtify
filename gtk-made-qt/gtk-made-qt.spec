@@ -1,8 +1,8 @@
 # RPM spec for Fedora and openSUSE.
 # Build: rpmbuild -ba --undefine=_disable_source_fetch gtk-made-qt.spec
-%global commit aeac975456aaec74579acd6f95e652fc1fef788c
+%global commit 5ebef1c4455ca456fe144a3aae41b52d292863d3
 %global shortcommit %(echo %{commit} | cut -c1-7)
-%global snapdate 202611140541
+%global snapdate 202611140923
 # The static archive must not hold LTO objects: programs link it with
 # whatever compiler they use.
 %global _lto_cflags %{nil}
@@ -81,6 +81,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 0.2.0+git202611140923.5ebef1c-1
+- Snapshot of gtk-made-qt at 5ebef1c (Galculator: builder accelerators, toggle button order, all keysyms)
+
 * Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 0.2.0+git202611140541.aeac975-1
 - Snapshot of gtk-made-qt at aeac975 (links with libc++ where that is the system's C++ library)
 

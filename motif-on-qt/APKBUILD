@@ -1,19 +1,19 @@
 # Maintainer: staalmannen <staal1978@gmail.com>
 # qtify: https://github.com/staalmannen/qtify
 pkgname=motif-on-qt
-pkgver=0.1_git202611140548
+pkgver=0.1_git202611140924
 pkgrel=0
-_commit=421a6489817d78aee3d8f5776026d3bb785f09f6
+_commit=cfff583cbe09cf5f231b2716b36caa9c8e40d332
 pkgdesc="The Motif, Xt and Xlib C APIs on Qt 6: build Motif programs without X11 or libXm"
-url="https://github.com/staalmannen/qtmotifextension"
+url="https://github.com/staalmannen/motif-on-qt"
 arch="all"
 license="LGPL-2.1-or-later AND MIT"
 depends_dev="qt6-qtbase-dev pkgconf"
 makedepends="cmake samurai $depends_dev"
 # only a static library: everything is in -dev
 subpackages="$pkgname-dev"
-source="qtmotifextension-$_commit.tar.gz::https://github.com/staalmannen/qtmotifextension/archive/$_commit.tar.gz"
-builddir="$srcdir/qtmotifextension-$_commit"
+source="motif-on-qt-$_commit.tar.gz::https://github.com/staalmannen/motif-on-qt/archive/$_commit.tar.gz"
+builddir="$srcdir/motif-on-qt-$_commit"
 # the regression tests need the examples, which are not built here
 options="!check"
 
@@ -38,5 +38,5 @@ dev() {
 }
 
 sha512sums="
-61f7935dcc04f34554d752b4556e5325c9f6a2ae7f87d6ff9e03645902bf8fb8e85a0e0df884b4c72c0d78fda95230b362ead2398b64cb6f21ecc2c56ef60d49  qtmotifextension-421a6489817d78aee3d8f5776026d3bb785f09f6.tar.gz
+0831462a853300622b4280c18f44d7bb52620fd9dc5ed665045cbd1c018ccbab13173db5d5a8110e7355480dd608f3c2d0eff8fee123ea287cbe80d7c00b6929  motif-on-qt-cfff583cbe09cf5f231b2716b36caa9c8e40d332.tar.gz
 "

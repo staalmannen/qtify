@@ -1,0 +1,5 @@
+galculator-qtify (2.1.4-1) unstable; urgency=medium
+
+  * Galculator 2.1.4 built against GTK made Qt.
+
+ -- staalmannen <staal1978@gmail.com>  Sat, 14 Nov 2026 09:30:00 +0000

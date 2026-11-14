@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: motif-on-qt
-Source: https://github.com/staalmannen/qtmotifextension
+Source: https://github.com/staalmannen/motif-on-qt
 
 Files: *
 Copyright: 2026 motif-on-qt contributors

@@ -1,0 +1,24 @@
+Source: galculator-qtify
+Section: math
+Priority: optional
+Maintainer: staalmannen <staal1978@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               gtk-made-qt-dev,
+               intltool,
+               flex,
+               pkgconf | pkg-config
+Standards-Version: 4.6.2
+Homepage: http://galculator.mnim.org/
+Rules-Requires-Root: no
+
+Package: galculator-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: galculator
+Conflicts: galculator
+Replaces: galculator
+Description: Galculator, the GTK scientific calculator, built on Qt
+ Galculator is a scientific calculator with algebraic, RPN and formula
+ modes, number bases, user constants and functions. This package builds its
+ unmodified GTK source against GTK made Qt: it runs as a Qt application
+ without GTK.

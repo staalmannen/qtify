@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+# gnu17 and -fcommon: 2016 C (Debian's own package patches the source)
+export DEB_CFLAGS_MAINT_APPEND = -std=gnu17 -fcommon
+
+# debhelper only sets its flags when they are unset; gtk-made-qt-env puts
+# its own -L in front of these
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+%:
+	dh $@
+
+# the release tarball has no configure
+override_dh_autoreconf:
+	mkdir -p m4
+	intltoolize --force
+	dh_autoreconf
+
+override_dh_auto_configure:
+	gtk-made-qt-env dh_auto_configure
+
+override_dh_auto_build:
+	gtk-made-qt-env dh_auto_build
+
+# starts the toolkit; the window needs the installed interface files
+override_dh_auto_test:
+	QT_QPA_PLATFORM=offscreen ./src/galculator -v | grep -q 'galculator v2'
+

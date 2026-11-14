@@ -1,7 +1,7 @@
 pkgname = "motif-on-qt"
-pkgver = "0.1_git202611140548"
+pkgver = "0.1_git202611140924"
 pkgrel = 0
-_commit = "421a6489817d78aee3d8f5776026d3bb785f09f6"
+_commit = "cfff583cbe09cf5f231b2716b36caa9c8e40d332"
 build_style = "cmake"
 configure_args = ["-DMQ_BUILD_EXAMPLES=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -11,9 +11,9 @@ makedepends = ["qt6-qtbase-devel"]
 depends = ["pkgconf", "qt6-qtbase-devel"]
 pkgdesc = "Motif, Xt and Xlib C APIs on Qt 6"
 license = "LGPL-2.1-or-later AND MIT"
-url = "https://github.com/staalmannen/qtmotifextension"
+url = "https://github.com/staalmannen/motif-on-qt"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "3227b580bb9e0a9ebfdd81e7c75d23f6fb6930ddab40f1cfa788fbdc1c916b87"
+sha256 = "b03dafa3b65f703b52a0ba4b4841169fbabd62ceac16da927faf26a3492c3e7e"
 # the static archive must not hold LTO bitcode; the tests need the examples
 options = ["!lto", "!check"]
 
