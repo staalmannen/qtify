@@ -13,12 +13,14 @@ Rules-Requires-Root: no
 Package: motif-on-qt-dev
 Architecture: any
 Depends: qt6-base-dev, pkgconf | pkg-config, ${misc:Depends}
-Description: Motif, Xt and Xlib C APIs on Qt 6 - development files
+Description: Motif, Athena, Xt and Xlib C APIs on Qt 6 - development files
  Motif on Qt implements the Xt/Motif C API, and the part of Xlib Motif
  programs use, on Qt 6: Motif programs compile unmodified and run as Qt
- applications, without X11 or libXm.
+ applications, without X11 or libXm. The Athena widgets (libXaw), Xmu
+ and the Xpm API are included, so Athena programs and programs that mix
+ Motif with Athena widgets build too.
  .
  This package has the headers, the static library, linker scripts and
- pkg-config files for -lXm -lXt -lX11, and the motif-on-qt-env wrapper:
+ pkg-config files for -lXm -lXt -lX11 -lXaw7 -lXmu -lXpm, and the motif-on-qt-env wrapper:
  run a program's build under motif-on-qt-env to build it against Motif on
  Qt.

@@ -2,10 +2,10 @@
 pkgname=motif-on-qt-git
 pkgver=r1
 pkgrel=1
-pkgdesc="The Motif, Xt and Xlib APIs on Qt 6: build Motif programs without X11 or libXm"
+pkgdesc="The Motif, Athena, Xt and Xlib APIs on Qt 6: build Motif and Xaw programs without X11"
 arch=(x86_64 aarch64)
 url="https://github.com/staalmannen/motif-on-qt"
-license=(LGPL-2.1-or-later)
+license=(LGPL-2.1-or-later MIT)
 depends=(qt6-base)
 makedepends=(cmake git)
 provides=(motif-on-qt)

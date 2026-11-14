@@ -1,0 +1,25 @@
+Source: ddd-qtify
+Section: devel
+Priority: optional
+Maintainer: staalmannen <staal1978@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               motif-on-qt-dev,
+               libncurses-dev,
+               flex,
+               bison
+Standards-Version: 4.6.2
+Homepage: https://www.gnu.org/software/ddd/
+Rules-Requires-Root: no
+
+Package: ddd-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, gdb
+Provides: ddd
+Conflicts: ddd
+Replaces: ddd
+Description: DDD, the GNU Data Display Debugger, built on Qt
+ DDD is a graphical front end for gdb and other command-line debuggers,
+ with a source window, a debugger console and a graph of data displays.
+ This package builds its unmodified Motif and Athena source against Motif
+ on Qt: it runs as a Qt application (X11 or Wayland) without libXm,
+ libXaw, libXt or libX11.

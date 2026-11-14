@@ -4,20 +4,21 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 
 ## Core dependencies
 **GTK applications** are built using [gtk-made-qt](https://github.com/staalmannen/gtk-made-qt), which require GLib and Cairo in addition to the normal Qt dependencies.
-**Motif applications** are built with [motif-on-qt](https://github.com/staalmannen/motif-on-qt), where all X11 dependencies have been replaced with an API built on top of Qt. A Motif application should thus be more portable (to Wayland, OSX, Windows, ...) when being rebuilt using Qt.
+**Motif and Athena (Xaw) applications** are built with [motif-on-qt](https://github.com/staalmannen/motif-on-qt), where all X11 dependencies have been replaced with an API built on top of Qt (the Athena widgets, Xmu and Xpm included). A Motif application should thus be more portable (to Wayland, OSX, Windows, ...) when being rebuilt using Qt.
 
 ## Packages and formats
 
 | Package | Built from | Arch | Alpine | Chimera | Fedora / openSUSE | Debian / Ubuntu |
 | --- | --- | --- | --- | --- | --- | --- |
 | [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot 5ebef1c (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
-| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot cfff583 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
+| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 54dacc6 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
 | [leafpad](leafpad) (GTK 2) | 0.8.19 | `PKGBUILD` | `APKBUILD` | `chimera/` | `leafpad-qtify.spec` | `debian/` |
 | [xmms](xmms) (GTK 1.2) | 1.2.11 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xmms-qtify.spec` | `debian/` |
 | [xpdf3](xpdf3) (Motif) | 3.04+git20260802 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xpdf-qtify.spec` | `debian/` |
 | [asunder](asunder) (GTK 2) | 3.0.1 | `PKGBUILD` | `APKBUILD` | `chimera/` | `asunder-qtify.spec` | `debian/` |
 | [nedit](nedit) (Motif) | 5.7 | `PKGBUILD` | `APKBUILD` | `chimera/` | `nedit-qtify.spec` | `debian/` |
 | [galculator](galculator) (GTK 3) | 2.1.4 | `PKGBUILD` | `APKBUILD` | `chimera/` | `galculator-qtify.spec` | `debian/` |
+| [ddd](ddd) (Motif + Athena) | 3.4.1 | `PKGBUILD` | `APKBUILD` | `chimera/` | `ddd-qtify.spec` | `debian/` |
 
 Applications are named `<program>-qtify` and provide / conflict with the
 original package. The libraries come in two parts where the distribution
@@ -91,8 +92,8 @@ cp -a ~/qtify/gtk-made-qt/chimera/* ~/cports/user/
 cp -a ~/qtify/xmms/chimera/* ~/cports/user/
 cd ~/cports && ./cbuild pkg user/xmms-qtify
 ```
-(`motif-on-qt`, `leafpad`, `xpdf3`, `nedit`, `asunder` and `galculator` the
-same way.)
+(`motif-on-qt`, `leafpad`, `xpdf3`, `nedit`, `asunder`, `galculator` and
+`ddd` the same way.)
 
 ### Fedora / openSUSE
 ```sh
