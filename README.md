@@ -10,12 +10,12 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 
 | Package | Built from | Arch | Alpine | Chimera | Fedora / openSUSE | Debian / Ubuntu |
 | --- | --- | --- | --- | --- | --- | --- |
-| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot ff8aba1 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
+| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot 9d43612 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
 | [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 249a95f (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
 | [leafpad](leafpad) (GTK 2) | 0.8.19 | `PKGBUILD` | `APKBUILD` | `chimera/` | `leafpad-qtify.spec` | `debian/` |
 | [xmms](xmms) (GTK 1.2) | 1.2.11 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xmms-qtify.spec` | `debian/` |
 | [xpdf3](xpdf3) (Motif) | 3.04+git20240202 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xpdf-qtify.spec` | `debian/` |
-| [asunder](asunder) (GTK 2) | 3.0.1 | `PKGBUILD` | | | | |
+| [asunder](asunder) (GTK 2) | 3.0.1 | `PKGBUILD` | `APKBUILD` | `chimera/` | `asunder-qtify.spec` | `debian/` |
 | [nedit](nedit) (Motif) | 5.7 | `PKGBUILD` | `APKBUILD` | `chimera/` | `nedit-qtify.spec` | `debian/` |
 
 Applications are named `<program>-qtify` and provide / conflict with the
@@ -43,7 +43,9 @@ static library and the `gtk-made-qt-env` / `motif-on-qt-env` build wrappers.
 - NEdit: built with every recipe here (and with clang 18 and GCC 14 in C23
   mode, which is why the recipes pass `-std=gnu17`), edited, saved, tabs
   and dialogs used in scripted headless runs.
-- asunder: PKGBUILD only, not built yet.
+- Asunder: built with every recipe here, installed from the .deb (its
+  dependencies are Qt, GLib, cairo, Pango, libcddb and cdparanoia), main
+  window and preferences used in scripted headless runs; no CD ripped yet.
 
 ## Building
 
@@ -73,8 +75,8 @@ ln -s gtk-made-qt ~/cports/user/gtk-made-qt-devel
 ln -s ~/qtify/xmms/chimera ~/cports/user/xmms-qtify
 cd ~/cports && ./cbuild pkg user/xmms-qtify
 ```
-(`motif-on-qt`, `leafpad-qtify` and `xpdf-qtify` the same way; motif-on-qt
-has no subpackage.)
+(`motif-on-qt`, `leafpad-qtify`, `xpdf-qtify`, `nedit-qtify` and
+`asunder-qtify` the same way; motif-on-qt has no subpackage.)
 
 ### Fedora / openSUSE
 ```sh

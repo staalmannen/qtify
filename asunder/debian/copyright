@@ -1,0 +1,13 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: asunder
+Source: http://littlesvr.ca/asunder/
+
+Files: *
+Copyright: 2005 Eric Lathrop
+           2007-2023 Andrew Smith and the Asunder contributors
+License: GPL-2+
+ On Debian systems the full text is in /usr/share/common-licenses/GPL-2.
+
+Files: debian/*
+Copyright: 2026 qtify contributors
+License: CC0-1.0

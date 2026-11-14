@@ -1,3 +1,10 @@
+gtk-made-qt (0.2.0+git20261113.9d43612-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/gtk-made-qt at 9d43612
+    (Asunder: threads, entry completion, file chooser button).
+
+ -- staalmannen <https://github.com/staalmannen/qtify>  Fri, 13 Nov 2026 22:00:00 +0000
+
 gtk-made-qt (0.2.0+git20261112.ff8aba1-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/gtk-made-qt at ff8aba1.
