@@ -1,7 +1,7 @@
 Source: gtk-made-qt
 Section: libs
 Priority: optional
-Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+Maintainer: staalmannen <staal1978@gmail.com>
 Build-Depends: debhelper-compat (= 13),
                cmake,
                pkgconf | pkg-config,

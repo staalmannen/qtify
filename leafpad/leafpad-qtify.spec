@@ -55,5 +55,5 @@ QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1000 ./src/leafpad
 %{_mandir}/man1/leafpad.1*
 
 %changelog
-* Thu Nov 12 2026 staalmannen <https://github.com/staalmannen/qtify> - 0.8.19-1
+* Thu Nov 12 2026 staalmannen <staal1978@gmail.com> - 0.8.19-1
 - Leafpad 0.8.19 (tarot231/leafpad 3b1a2c2) built against GTK made Qt

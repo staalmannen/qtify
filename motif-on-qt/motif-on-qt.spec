@@ -64,11 +64,11 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/pkgconfig/motif-on-qt.pc
 
 %changelog
-* Sat Nov 14 2026 staalmannen <https://github.com/staalmannen/qtify> - 0.1+git202611140548.421a648-1
+* Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 0.1+git202611140548.421a648-1
 - Snapshot of motif-on-qt at 421a648 (headers compile as C++17 with clang; links with libc++)
 
-* Sat Nov 14 2026 staalmannen <https://github.com/staalmannen/qtify> - 0.1+git20261114.491b66c-1
+* Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 0.1+git20261114.491b66c-1
 - Snapshot of motif-on-qt at 491b66c (builds on musl and Qt 6.11; no build directory in the tree)
 
-* Fri Nov 13 2026 staalmannen <https://github.com/staalmannen/qtify> - 0.1+git20261113.249a95f-1
+* Fri Nov 13 2026 staalmannen <staal1978@gmail.com> - 0.1+git20261113.249a95f-1
 - Snapshot of qtmotifextension at 249a95f

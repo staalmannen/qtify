@@ -1,7 +1,7 @@
 Source: xpdf-qtify
 Section: text
 Priority: optional
-Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+Maintainer: staalmannen <staal1978@gmail.com>
 Build-Depends: debhelper-compat (= 13),
                motif-on-qt-dev,
                libpoppler-private-dev,

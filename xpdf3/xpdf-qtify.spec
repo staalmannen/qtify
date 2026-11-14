@@ -53,8 +53,8 @@ QT_QPA_PLATFORM=offscreen ./xpdf/xpdf -v 2>&1 | grep -q 'version 3'
 %{_mandir}/man5/xpdfrc.5*
 
 %changelog
-* Sat Nov 14 2026 staalmannen <https://github.com/staalmannen/qtify> - 3.04.git20260802-1
+* Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 3.04.git20260802-1
 - Debian's xpdf snapshot of 2026-08-02: builds with poppler 25 (C++20)
 
-* Thu Nov 12 2026 staalmannen <https://github.com/staalmannen/qtify> - 3.04.git20240202-1
+* Thu Nov 12 2026 staalmannen <staal1978@gmail.com> - 3.04.git20240202-1
 - xpdf 3.04+git20240202 (Debian's orig tarball) built against Motif on Qt

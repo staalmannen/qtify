@@ -57,5 +57,5 @@ HOME=$PWD/test-home QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1500 ./src/asunder
 %{_datadir}/pixmaps/asunder.*
 
 %changelog
-* Fri Nov 13 2026 staalmannen <https://github.com/staalmannen/qtify> - 3.0.1-1
+* Fri Nov 13 2026 staalmannen <staal1978@gmail.com> - 3.0.1-1
 - Asunder 3.0.1 built against GTK made Qt

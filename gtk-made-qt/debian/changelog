@@ -3,24 +3,24 @@ gtk-made-qt (0.2.0+git202611140541.aeac975-1) unstable; urgency=medium
   * Snapshot of https://github.com/staalmannen/gtk-made-qt at aeac975 (links
     with libc++ where that is the system's C++ library).
 
- -- staalmannen <https://github.com/staalmannen/qtify>  Sat, 14 Nov 2026 05:41:38 +0000
+ -- staalmannen <staal1978@gmail.com>  Sat, 14 Nov 2026 05:41:38 +0000
 
 gtk-made-qt (0.2.0+git20261114.ee24bf3-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/gtk-made-qt at ee24bf3
     (builds with Qt 6.11).
 
- -- staalmannen <https://github.com/staalmannen/qtify>  Sat, 14 Nov 2026 05:07:48 +0000
+ -- staalmannen <staal1978@gmail.com>  Sat, 14 Nov 2026 05:07:48 +0000
 
 gtk-made-qt (0.2.0+git20261113.9d43612-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/gtk-made-qt at 9d43612
     (Asunder: threads, entry completion, file chooser button).
 
- -- staalmannen <https://github.com/staalmannen/qtify>  Fri, 13 Nov 2026 22:00:00 +0000
+ -- staalmannen <staal1978@gmail.com>  Fri, 13 Nov 2026 22:00:00 +0000
 
 gtk-made-qt (0.2.0+git20261112.ff8aba1-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/gtk-made-qt at ff8aba1.
 
- -- staalmannen <https://github.com/staalmannen/qtify>  Thu, 12 Nov 2026 12:00:00 +0000
+ -- staalmannen <staal1978@gmail.com>  Thu, 12 Nov 2026 12:00:00 +0000

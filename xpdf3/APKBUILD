@@ -1,4 +1,5 @@
-# qtify: https://github.com/staalmannen/qtify (aports needs a maintainer line with an e-mail address)
+# Maintainer: staalmannen <staal1978@gmail.com>
+# qtify: https://github.com/staalmannen/qtify
 pkgname=xpdf-qtify
 _debver=3.04+git20260802
 pkgver=3.04_git20260802

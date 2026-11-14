@@ -80,7 +80,7 @@ with open(spec) as f:
     s = f.read()
 version = re.search(r"^Version:\s*(\S+?)\+git", s, re.M).group(1)
 name = re.search(r"^Name:\s*(\S+)", s, re.M).group(1)
-entry = "* %s staalmannen <https://github.com/staalmannen/qtify> - %s+git%s.%s-1\n- Snapshot of %s at %s%s\n\n" % (
+entry = "* %s staalmannen <staal1978@gmail.com> - %s+git%s.%s-1\n- Snapshot of %s at %s%s\n\n" % (
     date.strftime("%a %b %d %Y"), version, snap, short, name, short, (" (" + note + ")") if note else "")
 update(spec, [
     (r"^%global commit \w+", "%global commit " + commit),
@@ -105,6 +105,6 @@ for word in text.split():
     line += " " + word
 lines.append(line)
 with open(cl, "w") as f:
-    f.write("%s (%s+git%s.%s-1) unstable; urgency=medium\n\n%s\n\n -- staalmannen <https://github.com/staalmannen/qtify>  %s\n\n" % (
+    f.write("%s (%s+git%s.%s-1) unstable; urgency=medium\n\n%s\n\n -- staalmannen <staal1978@gmail.com>  %s\n\n" % (
         src_name, version, snap, short, "\n".join(lines), date.strftime("%a, %d %b %Y %H:%M:%S +0000")) + old)
 print("%s: %s (%s, sha256 %s)" % (pkgdir, commit, snap, sha256))

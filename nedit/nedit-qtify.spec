@@ -57,5 +57,5 @@ HOME=$PWD/test-home QT_QPA_PLATFORM=offscreen MOTIFQT_AUTOQUIT=1500 ./source/ned
 %{_datadir}/applications/nedit.desktop
 
 %changelog
-* Fri Nov 13 2026 staalmannen <https://github.com/staalmannen/qtify> - 5.7-1
+* Fri Nov 13 2026 staalmannen <staal1978@gmail.com> - 5.7-1
 - NEdit 5.7 built against Motif on Qt

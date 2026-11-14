@@ -40,7 +40,7 @@ static library and the `gtk-made-qt-env` / `motif-on-qt-env` build wrappers.
   started headless. This found real problems the glibc runs had hidden
   (glibc-only calls and missing headers in motif-on-qt, Qt 6.11's
   Q_OBJECT checks, XMMS's getopt.c on musl, xpdf against poppler 25); all
-  fixed. APKBUILDs carry no maintainer line: aports wants an e-mail address.
+  fixed. APKBUILDs name the maintainer with an e-mail address, as abuild requires.
 - **Chimera**: every package built with cbuild (cports of 2026-11-14) in a
   Chimera root (clang, LLVM libc++, musl), installed there, and each
   program started headless. Found and fixed: the libraries' link scripts
