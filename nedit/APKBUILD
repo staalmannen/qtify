@@ -1,4 +1,4 @@
-# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+# qtify: https://github.com/staalmannen/qtify (aports needs a maintainer line with an e-mail address)
 pkgname=nedit-qtify
 pkgver=5.7
 pkgrel=0

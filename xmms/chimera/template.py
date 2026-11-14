@@ -27,6 +27,14 @@ def post_extract(self):
     from cbuild.util import gnu_configure
 
     gnu_configure.replace_guess(self)
+    # the getopt.c copies include <string.h> only on glibc
+    self.do(
+        "sed",
+        "-i",
+        "s|^#include <stdio.h>$|#include <stdio.h>\\n#include <string.h>|",
+        "wmxmms/getopt.c",
+        "xmms/getopt.c",
+    )
     # time stamps as in the release tarball, so make does not rerun automake 1.x
     self.do(
         "sh",

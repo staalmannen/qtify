@@ -1,3 +1,10 @@
+motif-on-qt (0.1+git20261114.491b66c-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/qtmotifextension at 491b66c
+    (builds on musl and Qt 6.11; no build directory in the tree).
+
+ -- staalmannen <https://github.com/staalmannen/qtify>  Sat, 14 Nov 2026 05:10:36 +0000
+
 motif-on-qt (0.1+git20261113.249a95f-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/qtmotifextension at 249a95f.

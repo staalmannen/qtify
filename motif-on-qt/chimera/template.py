@@ -1,7 +1,7 @@
 pkgname = "motif-on-qt"
-pkgver = "0.1_git20261113"
+pkgver = "0.1_git20261114"
 pkgrel = 0
-_commit = "249a95f10befb10f7c6b6b76587949dbd1abaa16"
+_commit = "491b66c0cfa740d5ec5a623c66d90f2d3b1e969c"
 build_style = "cmake"
 configure_args = ["-DMQ_BUILD_EXAMPLES=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -10,7 +10,7 @@ pkgdesc = "Motif, Xt and Xlib C APIs on Qt 6"
 license = "LGPL-2.1-or-later AND MIT"
 url = "https://github.com/staalmannen/qtmotifextension"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "000aeaeb69da52b9551288902e30140b8871d1f0b98bc8f22314a7a6608d063e"
+sha256 = "0b343f54514fd4ed141ab64e8f8f55ac2734fe72b18d2718cfc87b15f57600dd"
 # the static archive must not hold LTO bitcode; the tests need the examples.
 # Only a static library and headers, so one package: build against it with
 # makedepends = ["motif-on-qt"]

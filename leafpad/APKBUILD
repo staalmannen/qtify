@@ -1,4 +1,4 @@
-# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+# qtify: https://github.com/staalmannen/qtify (aports needs a maintainer line with an e-mail address)
 pkgname=leafpad-qtify
 pkgver=0.8.19
 pkgrel=0
