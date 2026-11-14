@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=XMMS
+GenericName=Audio Player
+Comment=Play music with the classic skinned player
+Exec=xmms %F
+Icon=/usr/share/xmms/wmxmms.xpm
+Terminal=false
+Categories=AudioVideo;Audio;Player;
+MimeType=audio/mpeg;audio/x-mp3;audio/x-wav;audio/ogg;audio/x-vorbis+ogg;audio/x-mpegurl;audio/x-scpls;

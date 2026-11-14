@@ -1,8 +1,8 @@
 # RPM spec for Fedora and openSUSE.
 # Build: rpmbuild -ba --undefine=_disable_source_fetch gtk-made-qt.spec
-%global commit ee24bf3c1058a6d56e1a61bda9a7a9379d38610b
+%global commit aeac975456aaec74579acd6f95e652fc1fef788c
 %global shortcommit %(echo %{commit} | cut -c1-7)
-%global snapdate 20261114
+%global snapdate 202611140541
 # The static archive must not hold LTO objects: programs link it with
 # whatever compiler they use.
 %global _lto_cflags %{nil}
@@ -81,6 +81,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sat Nov 14 2026 staalmannen <https://github.com/staalmannen/qtify> - 0.2.0+git202611140541.aeac975-1
+- Snapshot of gtk-made-qt at aeac975 (links with libc++ where that is the system's C++ library)
+
 * Sat Nov 14 2026 staalmannen <https://github.com/staalmannen/qtify> - 0.2.0+git20261114.ee24bf3-1
 - Snapshot of gtk-made-qt at ee24bf3 (builds with Qt 6.11)
 

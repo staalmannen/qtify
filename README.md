@@ -10,8 +10,8 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 
 | Package | Built from | Arch | Alpine | Chimera | Fedora / openSUSE | Debian / Ubuntu |
 | --- | --- | --- | --- | --- | --- | --- |
-| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot ee24bf3 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
-| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 491b66c (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
+| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot aeac975 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
+| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 421a648 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
 | [leafpad](leafpad) (GTK 2) | 0.8.19 | `PKGBUILD` | `APKBUILD` | `chimera/` | `leafpad-qtify.spec` | `debian/` |
 | [xmms](xmms) (GTK 1.2) | 1.2.11 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xmms-qtify.spec` | `debian/` |
 | [xpdf3](xpdf3) (Motif) | 3.04+git20260802 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xpdf-qtify.spec` | `debian/` |
@@ -41,7 +41,14 @@ static library and the `gtk-made-qt-env` / `motif-on-qt-env` build wrappers.
   (glibc-only calls and missing headers in motif-on-qt, Qt 6.11's
   Q_OBJECT checks, XMMS's getopt.c on musl, xpdf against poppler 25); all
   fixed. APKBUILDs carry no maintainer line: aports wants an e-mail address.
-- **Chimera**: written for cports, not yet built with cbuild.
+- **Chimera**: every package built with cbuild (cports of 2026-11-14) in a
+  Chimera root (clang, LLVM libc++, musl), installed there, and each
+  program started headless. Found and fixed: the libraries' link scripts
+  named libstdc++, Motif's headers had `register` parameters clang rejects
+  in C++17, cbuild's template lint and layout rules, BSD `sed`/`touch`,
+  glib-gettext's `/usr/lib/locale` on musl. (The build machine allows no
+  user namespaces, so cbuild's sandbox ran without one; the recipes do
+  not depend on that.)
 - XMMS and both libraries also build with GCC 14 and clang 18 (C code of
   2007 meets their new default errors; see the notes in the recipes).
 - NEdit: built with every recipe here (and with clang 18 and GCC 14 in C23
@@ -71,16 +78,16 @@ cd xmms && abuild -r
 ```
 
 ### Chimera (cports)
-A cports template lives in a directory named after the package, and every
-subpackage needs a symlink to it:
+Each package's `chimera/` directory holds its template directory (named
+after the package) and the links of its subpackages. cbuild only builds
+templates that really are in `user/` or `main/`, so copy them (`-a` keeps
+the subpackage links):
 ```sh
-ln -s ~/qtify/gtk-made-qt/chimera ~/cports/user/gtk-made-qt
-ln -s gtk-made-qt ~/cports/user/gtk-made-qt-devel
-ln -s ~/qtify/xmms/chimera ~/cports/user/xmms-qtify
+cp -a ~/qtify/gtk-made-qt/chimera/* ~/cports/user/
+cp -a ~/qtify/xmms/chimera/* ~/cports/user/
 cd ~/cports && ./cbuild pkg user/xmms-qtify
 ```
-(`motif-on-qt`, `leafpad-qtify`, `xpdf-qtify`, `nedit-qtify` and
-`asunder-qtify` the same way; motif-on-qt has no subpackage.)
+(`motif-on-qt`, `leafpad`, `xpdf3`, `nedit` and `asunder` the same way.)
 
 ### Fedora / openSUSE
 ```sh
@@ -110,8 +117,10 @@ to another one:
 ```sh
 tools/repin.py gtk-made-qt ~/src/gtk-made-qt <commit> "what changed"
 ```
-By hand, change the commit, version and checksum in each file:
-`APKBUILD` (`_commit`, `pkgver`, `sha512sums`), `chimera/template.py`
+The snapshot stamp is the commit time (`YYYYMMDDHHMM`), so two snapshots
+of one day still sort in order. By hand, change the commit, version and
+checksum in each file:
+`APKBUILD` (`_commit`, `pkgver`, `sha512sums`), `chimera/<pkgname>/template.py`
 (`_commit`, `pkgver`, `sha256`), the `.spec` (`commit`, `snapdate`),
 `debian/changelog` and `debian/qtify-source`. GitHub's archive of a commit is
 reproducible: `git archive --format=tar --prefix=<repo>-<commit>/ <commit> |

@@ -1,3 +1,10 @@
+motif-on-qt (0.1+git202611140548.421a648-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/qtmotifextension at 421a648
+    (headers compile as C++17 with clang; links with libc++).
+
+ -- staalmannen <https://github.com/staalmannen/qtify>  Sat, 14 Nov 2026 05:48:52 +0000
+
 motif-on-qt (0.1+git20261114.491b66c-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/qtmotifextension at 491b66c

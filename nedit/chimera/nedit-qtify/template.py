@@ -51,4 +51,6 @@ def install(self):
     self.install_bin("source/nc", name="nedit-nc")
     self.install_man("nedit.1")
     self.install_man("nedit-nc.1")
-    self.install_file(self.files_path / "nedit.desktop", "usr/share/applications")
+    self.install_file(
+        self.files_path / "nedit.desktop", "usr/share/applications"
+    )

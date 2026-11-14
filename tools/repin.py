@@ -5,11 +5,11 @@ usage: tools/repin.py <package dir> <git clone> <commit> [<changelog note>]
 
   tools/repin.py gtk-made-qt ~/src/gtk-made-qt ee24bf3 "Qt 6.11 build fix"
 
-Updates APKBUILD (_commit, pkgver, sha512sums), chimera/template.py
+Updates APKBUILD (_commit, pkgver, sha512sums), chimera/<pkgname>/template.py
 (_commit, pkgver, sha256), the .spec (commit, snapdate, %changelog),
 debian/changelog and debian/qtify-source. The checksums are those of
 GitHub's archive of the commit, which `git archive | gzip -n` reproduces.
-The snapshot date is the commit's date. The PKGBUILD follows the default
+The snapshot stamp is the commit time (UTC, YYYYMMDDHHMM). The PKGBUILD follows the default
 branch and is not touched.
 """
 import datetime, glob, hashlib, os, re, subprocess, sys
@@ -23,7 +23,8 @@ commit = subprocess.check_output(["git", "-C", clone, "rev-parse", rev + "^{comm
 short = commit[:7]
 stamp = int(subprocess.check_output(["git", "-C", clone, "show", "-s", "--format=%ct", commit], text=True))
 date = datetime.datetime.fromtimestamp(stamp, datetime.timezone.utc)
-snap = date.strftime("%Y%m%d")
+# date and time: same-day snapshots still sort in order (deb, rpm, apk)
+snap = date.strftime("%Y%m%d%H%M")
 
 # the repository name GitHub uses as the archive's top directory
 src = open(os.path.join(pkgdir, "debian", "qtify-source")).read()
@@ -45,12 +46,31 @@ def update(path, subs):
         f.write(s)
 
 
-update(os.path.join(pkgdir, "APKBUILD"), [
+def next_rel(path, pattern):
+    """pkgrel to use: 0 for a new snapshot date, one more for the same date
+    (the date is the whole version, so a second snapshot needs a new pkgrel)"""
+    with open(path) as f:
+        s = f.read()
+    m = re.search(pattern, s, re.M)
+    rel = re.search(r'^pkgrel ?= ?"?(\d+)', s, re.M)
+    old_commit = re.search(r'^_commit ?= ?"?(\w+)', s, re.M).group(1)
+    if m and m.group(1) == snap and old_commit != commit:
+        return str(int(rel.group(1)) + 1)
+    return rel.group(1) if m and m.group(1) == snap else "0"
+
+
+apkbuild = os.path.join(pkgdir, "APKBUILD")
+template = glob.glob(os.path.join(pkgdir, "chimera", "*", "template.py"))[0]
+apk_rel = next_rel(apkbuild, r"^pkgver=\d[\w.]*?_git(\d+)")
+cports_rel = next_rel(template, r'^pkgver = "\d[\w.]*?_git(\d+)"')
+update(apkbuild, [
+    (r"^pkgrel=\d+", "pkgrel=" + apk_rel),
     (r"^_commit=\w+", "_commit=" + commit),
     (r"^pkgver=(\d[\w.]*?)_git\d+", r"pkgver=\g<1>_git" + snap),
     (r"^[0-9a-f]{128}  (\S+)-[0-9a-f]{40}\.tar\.gz", r"%s  \g<1>-%s.tar.gz" % (sha512, commit)),
 ])
-update(os.path.join(pkgdir, "chimera", "template.py"), [
+update(template, [
+    (r"^pkgrel = \d+", "pkgrel = " + cports_rel),
     (r'^_commit = "\w+"', '_commit = "%s"' % commit),
     (r'^pkgver = "(\d[\w.]*?)_git\d+"', r'pkgver = "\g<1>_git%s"' % snap),
     (r'^sha256 = "[0-9a-f]+"', 'sha256 = "%s"' % sha256),

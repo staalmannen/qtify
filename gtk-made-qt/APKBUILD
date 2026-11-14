@@ -1,8 +1,8 @@
 # qtify: https://github.com/staalmannen/qtify (aports needs a maintainer line with an e-mail address)
 pkgname=gtk-made-qt
-pkgver=0.2.0_git20261114
+pkgver=0.2.0_git202611140541
 pkgrel=0
-_commit=ee24bf3c1058a6d56e1a61bda9a7a9379d38610b
+_commit=aeac975456aaec74579acd6f95e652fc1fef788c
 pkgdesc="The GTK 1.2/2/3/4 C API on Qt 6: build GTK programs that run without GTK"
 url="https://github.com/staalmannen/gtk-made-qt"
 arch="all"
@@ -40,5 +40,5 @@ dev() {
 }
 
 sha512sums="
-91fdc3167481ea9dac638071d9677542f0ccb0a57fa2db263354652668ca7b0bf4839be17849c48d5782f4c85b6fa7f4ebbe1ca922f13783ab2c896fc728a6fd  gtk-made-qt-ee24bf3c1058a6d56e1a61bda9a7a9379d38610b.tar.gz
+9ad043bb1808051fc408ded61fed0d97c7708d9acfd7910ccdf049041321a934c64f7160c57890595126dd8f541f18c45384e8544c983c4d6a636c9731e8630b  gtk-made-qt-aeac975456aaec74579acd6f95e652fc1fef788c.tar.gz
 "

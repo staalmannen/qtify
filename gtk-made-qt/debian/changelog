@@ -1,3 +1,10 @@
+gtk-made-qt (0.2.0+git202611140541.aeac975-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/gtk-made-qt at aeac975 (links
+    with libc++ where that is the system's C++ library).
+
+ -- staalmannen <https://github.com/staalmannen/qtify>  Sat, 14 Nov 2026 05:41:38 +0000
+
 gtk-made-qt (0.2.0+git20261114.ee24bf3-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/gtk-made-qt at ee24bf3
