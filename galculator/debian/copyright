@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: galculator
+Source: https://github.com/galculator/galculator
+
+Files: *
+Copyright: 2002-2015 Simon Flöry
+License: GPL-2+
+ On Debian systems the full text is in /usr/share/common-licenses/GPL-2.
+
+Files: debian/*
+Copyright: 2026 qtify contributors
+License: CC0-1.0

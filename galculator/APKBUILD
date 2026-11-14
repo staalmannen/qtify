@@ -1,0 +1,48 @@
+# Maintainer: staalmannen <staal1978@gmail.com>
+# qtify: https://github.com/staalmannen/qtify
+pkgname=galculator-qtify
+pkgver=2.1.4
+pkgrel=0
+pkgdesc="Galculator, the GTK scientific calculator, built on Qt with GTK made Qt"
+url="http://galculator.mnim.org/"
+arch="all"
+license="GPL-2.0-or-later"
+makedepends="gtk-made-qt-dev autoconf automake libtool intltool gettext-dev flex pkgconf"
+provides="galculator"
+replaces="galculator"
+subpackages="$pkgname-doc $pkgname-lang"
+# Debian's copy of the release (without the generated configure)
+source="https://deb.debian.org/debian/pool/main/g/galculator/galculator_$pkgver.orig.tar.gz"
+builddir="$srcdir/galculator-$pkgver"
+
+prepare() {
+	default_prepare
+	mkdir -p m4
+	intltoolize --force
+	autoreconf -fi
+}
+
+build() {
+	# gnu17 and -fcommon: 2016 C (unprototyped calls, a tentative definition
+	# in a header); Debian patches the source for the same
+	CFLAGS="$CFLAGS -std=gnu17 -fcommon" gtk-made-qt-env ./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--mandir=/usr/share/man
+	gtk-made-qt-env make
+}
+
+check() {
+	# starts the toolkit; the window needs the installed interface files
+	QT_QPA_PLATFORM=offscreen ./src/galculator -v | grep -q 'galculator v2'
+
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+}
+
+sha512sums="
+99e60020c0b9370f35c494ca91dcfabf520596c682417b5c09ef25890508dc7d5a2e4c2dd931e49909d99f1f40941780ae98c4a50b9e10fce5dbaa168038dd14  galculator_2.1.4.orig.tar.gz
+"

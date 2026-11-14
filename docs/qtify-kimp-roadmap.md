@@ -1,6 +1,6 @@
 # Qtify Packaging Roadmap: From Legacy Motif/GTK2 to Modern "KIMP" (GIMP)
 
-This roadmap outlines a phased strategy for populating the `qtify` repository using **`gtk-made-qt`** and **`qtmotifextension`**. By progressing from self-contained legacy tools to complex modern applications, each phase validates specific shim layers while delivering immediate value to distributions trying to drop legacy toolkits (such as GTK 2 and Motif/X11).
+This roadmap outlines a phased strategy for populating the `qtify` repository using **`gtk-made-qt`** and **`motif-on-qt`**. By progressing from self-contained legacy tools to complex modern applications, each phase validates specific shim layers while delivering immediate value to distributions trying to drop legacy toolkits (such as GTK 2 and Motif/X11).
 
 ---
 

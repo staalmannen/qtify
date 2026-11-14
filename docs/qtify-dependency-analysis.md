@@ -1,6 +1,6 @@
 # Dependency & Compatibility Analysis for `qtify` Target Applications
 
-This report evaluates the dependency trees and toolkit requirements of four classic legacy applications (**NEdit**, **Asunder**, **Sylpheed**, and **XmGrace**) against the current capabilities of `qtmotifextension` and `gtk-made-qt`.
+This report evaluates the dependency trees and toolkit requirements of four classic legacy applications (**NEdit**, **Asunder**, **Sylpheed**, and **XmGrace**) against the current capabilities of `motif-on-qt` and `gtk-made-qt`.
 
 ---
 
@@ -20,7 +20,7 @@ This report evaluates the dependency trees and toolkit requirements of four clas
 **Overview:** A fast, compact programmer's text editor written in ANSI C89, relying purely on Motif and Xlib without external desktop environment frameworks.
 
 ### Dependency Tree
-* **GUI & Windowing (Replaced by `qtmotifextension`):**
+* **GUI & Windowing (Replaced by `motif-on-qt`):**
   * `libXm` (Motif 1.2+ / 2.3)
   * `libXt` (X Toolkit Intrinsics)
   * `libX11`, `libXext`, `libXmu`, `libXpm`
@@ -28,11 +28,11 @@ This report evaluates the dependency trees and toolkit requirements of four clas
   * `glibc` (Standard C library)
   * *Optional (XNEdit fork only):* `fontconfig`, `libXft` (anti-aliased font rendering)
 
-### Compatibility with `qtmotifextension`
+### Compatibility with `motif-on-qt`
 * **Strengths:**
   * Uses standard Motif primitives and managers (`XmMainWindow`, `XmRowColumn` menu bars, `XmForm`, `XmBulletinBoard`, `XmPushButton`, `XmToggleButton`, `XmFileSelectionBox`).
-  * Relies heavily on `Xrm` resources, translations, actions, and `Xt` timers/work procs—all explicitly implemented in `qtmotifextension`.
-  * Standard `NEdit` avoids `Xft` and uses classic XLFD font names and core X11 drawing (`XDrawLine`, `XCopyArea`, `GCs`), which `qtmotifextension` maps directly onto `QPainter`.
+  * Relies heavily on `Xrm` resources, translations, actions, and `Xt` timers/work procs—all explicitly implemented in `motif-on-qt`.
+  * Standard `NEdit` avoids `Xft` and uses classic XLFD font names and core X11 drawing (`XDrawLine`, `XCopyArea`, `GCs`), which `motif-on-qt` maps directly onto `QPainter`.
 * **Watchouts:**
   * NEdit's main text editing area is a custom-drawn `XmDrawingArea` widget (`textDisp.c`) with custom selection, scrolling, and cursor blinking. While `DrawingArea` and `Expose` events are supported, intense Xlib clipping/XOR cursor drawing will thoroughly test your `QPainter` X11 backend.
   * *Recommendation:* Target upstream **NEdit 5.7** first rather than **XNEdit**, as XNEdit introduces `libXft` dependencies not covered by core Xlib shims.
@@ -70,14 +70,14 @@ This report evaluates the dependency trees and toolkit requirements of four clas
 **Overview:** A ubiquitous WYSIWYG 2D scientific plotting tool used in physics, chemistry, and engineering labs. It suffers from severe font/scaling issues on modern Wayland/HiDPI desktops due to its unmaintained Motif UI.
 
 ### Dependency Tree
-* **GUI & Windowing (Replaced by `qtmotifextension`):**
+* **GUI & Windowing (Replaced by `motif-on-qt`):**
   * `libXm` (Motif 2.x)
   * `libXt`, `libX11`, `libXext`, `libXmu`, `libXpm`
 * **Scientific & Export Libraries (Non-GUI):**
   * `libm` / `glibc`
   * *Optional:* `fftw` (Fast Fourier Transforms), `netcdf` (scientific data formats), `libjpeg`, `libpng`, `zlib`, `t1lib` / `freetype` (PostScript/PDF plot export)
 
-### Compatibility with `qtmotifextension`
+### Compatibility with `motif-on-qt`
 * **Strengths:**
   * Classic Motif dialog-heavy architecture (`XmForm`, `XmRowColumn`, `XmList`, `XmScale`, `XmTextField`, `XmFileSelectionBox`, `XmDrawingArea`).
   * Eliminating X11 and running XmGrace natively on Qt 6 / Wayland solves its notorious HiDPI scaling problem immediately.
@@ -116,6 +116,6 @@ This report evaluates the dependency trees and toolkit requirements of four clas
 ## Recommended `qtify` Packaging Sequence
 
 1. **Asunder (`PKGBUILD` / build script):** Simplest GTK 2 codebase, minimal non-GTK dependencies (`cdparanoia`, `libcddb`), instant visual payoff.
-2. **NEdit 5.7 (`PKGBUILD` / build script):** Zero external dependencies beyond `qtmotifextension` and `glibc`; iconic Unix tool to showcase Motif-on-Wayland.
+2. **NEdit 5.7 (`PKGBUILD` / build script):** Zero external dependencies beyond `motif-on-qt` and `glibc`; iconic Unix tool to showcase Motif-on-Wayland.
 3. **XmGrace (`PKGBUILD` / build script):** High impact for academic/scientific Linux users; tests bundled Motif widget subclasses (`XbaeMatrix`).
 4. **Sylpheed (`PKGBUILD` / build script):** Comprehensive GTK 2 real-world stress test (build initially with `--disable-gtkspell` and `--disable-compface` to isolate the core UI).

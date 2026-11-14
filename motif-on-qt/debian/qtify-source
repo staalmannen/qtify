@@ -1,3 +1,3 @@
 # Upstream source for tools/build-deb.sh
-SOURCE_URL=https://github.com/staalmannen/qtmotifextension/archive/421a6489817d78aee3d8f5776026d3bb785f09f6.tar.gz
-SOURCE_SHA256=3227b580bb9e0a9ebfdd81e7c75d23f6fb6930ddab40f1cfa788fbdc1c916b87
+SOURCE_URL=https://github.com/staalmannen/motif-on-qt/archive/cfff583cbe09cf5f231b2716b36caa9c8e40d332.tar.gz
+SOURCE_SHA256=b03dafa3b65f703b52a0ba4b4841169fbabd62ceac16da927faf26a3492c3e7e

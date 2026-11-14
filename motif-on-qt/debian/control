@@ -7,7 +7,7 @@ Build-Depends: debhelper-compat (= 13),
                pkgconf | pkg-config,
                qt6-base-dev
 Standards-Version: 4.6.2
-Homepage: https://github.com/staalmannen/qtmotifextension
+Homepage: https://github.com/staalmannen/motif-on-qt
 Rules-Requires-Root: no
 
 Package: motif-on-qt-dev

@@ -1,8 +1,8 @@
 # RPM spec for Fedora and openSUSE.
 # Build: rpmbuild -ba --undefine=_disable_source_fetch motif-on-qt.spec
-%global commit 421a6489817d78aee3d8f5776026d3bb785f09f6
+%global commit cfff583cbe09cf5f231b2716b36caa9c8e40d332
 %global shortcommit %(echo %{commit} | cut -c1-7)
-%global snapdate 202611140548
+%global snapdate 202611140924
 # The static archive must not hold LTO objects: programs link it with
 # whatever compiler they use.
 %global _lto_cflags %{nil}
@@ -14,8 +14,8 @@ Version:        0.1+git%{snapdate}.%{shortcommit}
 Release:        1%{?dist}
 Summary:        The Motif, Xt and Xlib C APIs on Qt 6
 License:        LGPL-2.1-or-later AND MIT
-URL:            https://github.com/staalmannen/qtmotifextension
-Source0:        %{url}/archive/%{commit}/qtmotifextension-%{commit}.tar.gz
+URL:            https://github.com/staalmannen/motif-on-qt
+Source0:        %{url}/archive/%{commit}/motif-on-qt-%{commit}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -39,7 +39,7 @@ Headers, the static library, linker scripts and pkg-config files for
 under motif-on-qt-env to build it against Motif on Qt.
 
 %prep
-%autosetup -n qtmotifextension-%{commit}
+%autosetup -n motif-on-qt-%{commit}
 
 %build
 cmake -B build -S . \
@@ -64,6 +64,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/pkgconfig/motif-on-qt.pc
 
 %changelog
+* Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 0.1+git202611140924.cfff583-1
+- Snapshot of motif-on-qt at cfff583 (the repository is now motif-on-qt)
+
 * Sat Nov 14 2026 staalmannen <staal1978@gmail.com> - 0.1+git202611140548.421a648-1
 - Snapshot of motif-on-qt at 421a648 (headers compile as C++17 with clang; links with libc++)
 
@@ -71,4 +74,4 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 - Snapshot of motif-on-qt at 491b66c (builds on musl and Qt 6.11; no build directory in the tree)
 
 * Fri Nov 13 2026 staalmannen <staal1978@gmail.com> - 0.1+git20261113.249a95f-1
-- Snapshot of qtmotifextension at 249a95f
+- Snapshot of motif-on-qt at 249a95f
