@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# debhelper only sets its flags when they are unset; gtk-made-qt-env puts
+# its own -L in front of these
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+%:
+	dh $@
+
+# the +ds source has no configure
+override_dh_autoreconf:
+	intltoolize --force
+	dh_autoreconf
+
+override_dh_auto_configure:
+	gtk-made-qt-env dh_auto_configure
+
+override_dh_auto_build:
+	gtk-made-qt-env dh_auto_build
+
+# starts, shows its window and quits
+override_dh_auto_test:
+	mkdir -p debian/test-home/.config
+	HOME=$(CURDIR)/debian/test-home QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1500 ./src/asunder

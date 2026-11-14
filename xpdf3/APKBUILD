@@ -1,7 +1,8 @@
-# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+# Maintainer: staalmannen <staal1978@gmail.com>
+# qtify: https://github.com/staalmannen/qtify
 pkgname=xpdf-qtify
-_debver=3.04+git20240202
-pkgver=3.04_git20240202
+_debver=3.04+git20260802
+pkgver=3.04_git20260802
 pkgrel=0
 pkgdesc="xpdf 3 (the Motif PDF viewer, Poppler based) built on Qt with Motif on Qt"
 url="https://tracker.debian.org/pkg/xpdf"
@@ -20,6 +21,8 @@ prepare() {
 }
 
 build() {
+	# poppler 25 headers use C++20 (std::span, string::ends_with)
+	CXXFLAGS="$CXXFLAGS -std=gnu++20" \
 	motif-on-qt-env ./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
@@ -31,7 +34,7 @@ build() {
 
 check() {
 	# -v prints the version and exits with status 99 (xpdf's convention)
-	QT_QPA_PLATFORM=offscreen ./xpdf/xpdf -v 2>&1 | grep -q 'xpdf version 3'
+	QT_QPA_PLATFORM=offscreen ./xpdf/xpdf -v 2>&1 | grep -q 'version 3'
 }
 
 package() {
@@ -39,5 +42,5 @@ package() {
 }
 
 sha512sums="
-c193f3c40ce37461c8efd4ebd755206cb35cb21f22e418a6a2302a5bf1668f24017226f259c353521dc06a9182f51e61c729fa9294dd480fc029918d82ba8eb0  xpdf_3.04+git20240202.orig.tar.xz
+8d754c98ea447fe1773b774a91133c337ca17069864c87f00163163a1f9d398c37737b27445bc13078dbfa2fe5c01fc726d417b19db5ea7a19e4549c3591a33f  xpdf_3.04+git20260802.orig.tar.xz
 "

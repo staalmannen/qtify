@@ -27,13 +27,20 @@ def post_extract(self):
     from cbuild.util import gnu_configure
 
     gnu_configure.replace_guess(self)
+    # the getopt.c copies include <string.h> only on glibc
+    for f in ["wmxmms/getopt.c", "xmms/getopt.c"]:
+        p = self.cwd / f
+        src = p.read_bytes()
+        p.write_bytes(
+            src.replace(b"<stdio.h>\n", b"<stdio.h>\n#include <string.h>\n", 1)
+        )
     # time stamps as in the release tarball, so make does not rerun automake 1.x
     self.do(
         "sh",
         "-c",
-        "find . -exec touch -h -d '2001-01-01 00:00' {} + && "
-        "touch -d '2001-01-01 00:01' aclocal.m4 && "
-        "touch -d '2001-01-01 00:02' configure "
+        "find . -exec touch -h -t 200101010000 {} + && "
+        "touch -t 200101010001 aclocal.m4 && "
+        "touch -t 200101010002 configure "
         "$(find . -name Makefile.in -o -name '*.h.in')",
     )
 
@@ -45,8 +52,8 @@ def configure(self):
         "gtk-made-qt-env",
         "--shared",
         "./configure",
-        f"--build={self.profile().triplet}",
-        f"--host={self.profile().triplet}",
+        f"--build={self.profile.triplet}",
+        f"--host={self.profile.triplet}",
         "--prefix=/usr",
         "--sysconfdir=/etc",
         "--mandir=/usr/share/man",
@@ -79,4 +86,6 @@ def install(self):
     self.uninstall("usr/lib/*.la", glob=True)
     self.uninstall("usr/lib/xmms/*/*.la", glob=True)
     self.uninstall("usr/lib/libxmms.a")
-    self.install_file(self.files_path / "xmms.desktop", "usr/share/applications")
+    self.install_file(
+        self.files_path / "xmms.desktop", "usr/share/applications"
+    )

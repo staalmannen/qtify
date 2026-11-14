@@ -80,5 +80,5 @@ HOME=$PWD/test-home QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1500 ./xmms/xmms
 %{_datadir}/applications/xmms.desktop
 
 %changelog
-* Thu Nov 12 2026 staalmannen <https://github.com/staalmannen/qtify> - 1.2.11-1
+* Thu Nov 12 2026 staalmannen <staal1978@gmail.com> - 1.2.11-1
 - XMMS 1.2.11 (deepfire/xmms 5847897) built against GTK made Qt

@@ -1,4 +1,5 @@
-# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+# Maintainer: staalmannen <staal1978@gmail.com>
+# qtify: https://github.com/staalmannen/qtify
 pkgname=xmms-qtify
 pkgver=1.2.11
 pkgrel=0
@@ -21,6 +22,8 @@ prepare() {
 	# its 2007 config.sub does not know musl
 	update_config_sub
 	update_config_guess
+	# the getopt.c copies include <string.h> only on glibc
+	sed -i 's|^#include <stdio.h>$|#include <stdio.h>\n#include <string.h>|' wmxmms/getopt.c xmms/getopt.c
 	# time stamps as in the release tarball, so make does not rerun automake 1.x
 	find . -exec touch -h -d '2001-01-01 00:00' {} +
 	touch -d '2001-01-01 00:01' aclocal.m4

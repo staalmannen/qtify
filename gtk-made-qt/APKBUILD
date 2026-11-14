@@ -1,13 +1,15 @@
-# Maintainer: staalmannen <https://github.com/staalmannen/qtify>
+# Maintainer: staalmannen <staal1978@gmail.com>
+# qtify: https://github.com/staalmannen/qtify
 pkgname=gtk-made-qt
-pkgver=0.2.0_git20261112
+pkgver=0.2.0_git202611140541
 pkgrel=0
-_commit=ff8aba1520c15b381ae7c4b3155697d69be05fd9
+_commit=aeac975456aaec74579acd6f95e652fc1fef788c
 pkgdesc="The GTK 1.2/2/3/4 C API on Qt 6: build GTK programs that run without GTK"
 url="https://github.com/staalmannen/gtk-made-qt"
 arch="all"
 license="LGPL-2.1-or-later"
-depends_dev="qt6-qtbase-dev glib-dev cairo-dev pango-dev pkgconf"
+# libucontext: musl has no swapcontext (gdk_threads_enter moves GTK calls to the GUI thread with it)
+depends_dev="qt6-qtbase-dev glib-dev cairo-dev pango-dev pkgconf libucontext-dev"
 makedepends="cmake samurai $depends_dev"
 subpackages="$pkgname-dev"
 source="$pkgname-$_commit.tar.gz::https://github.com/staalmannen/gtk-made-qt/archive/$_commit.tar.gz"
@@ -32,11 +34,12 @@ package() {
 }
 
 dev() {
-	default_dev
 	# the static library, linker scripts, pkg-config files and gtk-config
+	# (first: default_dev would take the .a files out of the directory)
 	amove usr/lib/gtk-made-qt usr/bin/gtk-made-qt-env
+	default_dev
 }
 
 sha512sums="
-195a8491d083e600fa0872243e4530cc3cb9e391fb3121dc8b85e06c557d0485648871ecac50a8fc276024601fe414cb43ea5f2892b8954ea4b4c3808faef9ac  gtk-made-qt-ff8aba1520c15b381ae7c4b3155697d69be05fd9.tar.gz
+9ad043bb1808051fc408ded61fed0d97c7708d9acfd7910ccdf049041321a934c64f7160c57890595126dd8f541f18c45384e8544c983c4d6a636c9731e8630b  gtk-made-qt-aeac975456aaec74579acd6f95e652fc1fef788c.tar.gz
 "

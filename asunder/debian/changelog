@@ -1,0 +1,5 @@
+asunder-qtify (3.0.1-1) unstable; urgency=medium
+
+  * Asunder 3.0.1 built against GTK made Qt.
+
+ -- staalmannen <staal1978@gmail.com>  Fri, 13 Nov 2026 22:00:00 +0000

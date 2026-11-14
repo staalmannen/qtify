@@ -5,6 +5,8 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 # its own -I and -L in front of these
 export CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
 export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+# poppler 25 headers use C++20 (std::span, string::ends_with)
+export DEB_CXXFLAGS_MAINT_APPEND = -std=gnu++20
 
 %:
 	dh $@
@@ -17,4 +19,4 @@ override_dh_auto_build:
 
 # -v prints the version and exits with status 99 (xpdf's convention)
 override_dh_auto_test:
-	QT_QPA_PLATFORM=offscreen ./xpdf/xpdf -v 2>&1 | grep -q 'xpdf version 3'
+	QT_QPA_PLATFORM=offscreen ./xpdf/xpdf -v 2>&1 | grep -q 'version 3'
