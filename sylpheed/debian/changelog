@@ -1,0 +1,5 @@
+sylpheed-qtify (3.7.0-1) unstable; urgency=medium
+
+  * Sylpheed 3.7.0 built against GTK made Qt.
+
+ -- staalmannen <staal1978@gmail.com>  Wed, 18 Nov 2026 18:00:00 +0000

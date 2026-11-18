@@ -10,7 +10,7 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 
 | Package | Built from | Arch | Alpine | Chimera | Fedora / openSUSE | Debian / Ubuntu |
 | --- | --- | --- | --- | --- | --- | --- |
-| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot 5ebef1c (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
+| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot d7f2d73 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
 | [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 24c2cc2 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
 | [leafpad](leafpad) (GTK 2) | 0.8.19 | `PKGBUILD` | `APKBUILD` | `chimera/` | `leafpad-qtify.spec` | `debian/` |
 | [xmms](xmms) (GTK 1.2) | 1.2.11 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xmms-qtify.spec` | `debian/` |
@@ -19,11 +19,12 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 | [nedit](nedit) (Motif) | 5.7 | `PKGBUILD` | `APKBUILD` | `chimera/` | `nedit-qtify.spec` | `debian/` |
 | [galculator](galculator) (GTK 3) | 2.1.4 | `PKGBUILD` | `APKBUILD` | `chimera/` | `galculator-qtify.spec` | `debian/` |
 | [ddd](ddd) (Motif + Athena) | 3.4.1 | `PKGBUILD` | `APKBUILD` | `chimera/` | `ddd-qtify.spec` | `debian/` |
+| [sylpheed](sylpheed) (GTK 2) | 3.7.0 | `PKGBUILD` | `APKBUILD` | `chimera/` | `sylpheed-qtify.spec` | `debian/` |
 
 Applications are named `<program>-qtify` and provide / conflict with the
 original package. The libraries come in two parts where the distribution
 splits them: the shared library (`libgtk-made-qt.so.0`, only used by programs
-with plugins such as XMMS) and the development package with headers, the
+with plugins such as XMMS and Sylpheed) and the development package with headers, the
 static library and the `gtk-made-qt-env` / `motif-on-qt-env` build wrappers.
 
 ### What was tested
@@ -59,6 +60,12 @@ static library and the `gtk-made-qt-env` / `motif-on-qt-env` build wrappers.
 - Galculator: built with every recipe here (real abuild and cbuild
   included), installed on Ubuntu, Alpine and Chimera and used there
   headless (typed and clicked calculations, scientific mode).
+- Sylpheed: built with every recipe here (real abuild and cbuild
+  included; the RPM spec with rpmbuild, the PKGBUILD's functions as makepkg
+  runs them), installed on Ubuntu, Alpine and Chimera and used there
+  headless on an MH mailbox (folder tree, message list and view, compose
+  window); compared with the same version on real GTK 2. Mail was not sent
+  or fetched over the network.
 - Asunder: built with every recipe here, installed from the .deb (its
   dependencies are Qt, GLib, cairo, Pango, libcddb and cdparanoia), main
   window and preferences used in scripted headless runs; no CD ripped yet.

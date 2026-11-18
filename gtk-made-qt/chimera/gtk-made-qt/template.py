@@ -1,7 +1,7 @@
 pkgname = "gtk-made-qt"
-pkgver = "0.2.0_git202611140923"
+pkgver = "0.2.0_git202611181809"
 pkgrel = 0
-_commit = "5ebef1c4455ca456fe144a3aae41b52d292863d3"
+_commit = "d7f2d7315c5cd67f14fc9054ce6821a8c62e5407"
 build_style = "cmake"
 configure_args = ["-DGTKQT_BUILD_EXAMPLES=OFF", "-DGTKQT_BUILD_TESTS=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -17,7 +17,7 @@ pkgdesc = "GTK 1.2/2/3/4 C API on Qt 6"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/staalmannen/gtk-made-qt"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "f0b424efd2696d24cdb8b752e9a68df963b91f26a569b5a3f3caeaa2f2efba40"
+sha256 = "605e38df92e95acb57065fc07a56e2b05377ccebff8357ced9132bd00506cd02"
 # the static archive must not hold LTO bitcode; the tests need the examples
 options = ["!lto", "!check"]
 

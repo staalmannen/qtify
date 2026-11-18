@@ -1,3 +1,11 @@
+gtk-made-qt (0.2.0+git202611181809.d7f2d73-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/gtk-made-qt at d7f2d73
+    (Sylpheed: GTK 2 tree view, text anchors, pixbuf, bindings, accel map,
+    status icon).
+
+ -- staalmannen <staal1978@gmail.com>  Wed, 18 Nov 2026 18:09:31 +0000
+
 gtk-made-qt (0.2.0+git202611140923.5ebef1c-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/gtk-made-qt at 5ebef1c

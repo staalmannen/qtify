@@ -1,0 +1,54 @@
+# Maintainer: staalmannen <staal1978@gmail.com>
+# qtify: https://github.com/staalmannen/qtify
+pkgname=sylpheed-qtify
+pkgver=3.7.0
+pkgrel=0
+pkgdesc="Sylpheed, the GTK 2 mail client, built on Qt with GTK made Qt"
+url="https://sylpheed.sraoss.jp/"
+arch="all"
+license="GPL-2.0-or-later AND LGPL-2.1-or-later"
+makedepends="gtk-made-qt-dev openssl-dev gettext-dev pkgconf"
+provides="sylpheed"
+replaces="sylpheed"
+subpackages="$pkgname-dev $pkgname-lang"
+# Debian's copy of the release tarball
+source="https://deb.debian.org/debian/pool/main/s/sylpheed/sylpheed_$pkgver.orig.tar.bz2"
+builddir="$srcdir/sylpheed-$pkgver"
+
+prepare() {
+	default_prepare
+	# its config.sub does not know musl
+	update_config_sub
+	update_config_guess
+}
+
+build() {
+	# the shared toolkit: the plugin library calls GTK too;
+	# GCC 14 makes libsylph's pointer type mismatches (execute_async) errors
+	CFLAGS="$CFLAGS -Wno-error=incompatible-pointer-types" \
+	gtk-made-qt-env --shared ./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--mandir=/usr/share/man \
+		--disable-gtkspell \
+		--disable-gpgme \
+		--disable-compface \
+		--disable-rpath
+	gtk-made-qt-env --shared make
+}
+
+check() {
+	# starts headless in an empty home (the first run dialog) and quits
+	mkdir -p "$srcdir/home"
+	HOME="$srcdir/home" LANG=C.UTF-8 QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=2000 ./src/sylpheed
+}
+
+package() {
+	make DESTDIR="$pkgdir" install
+	find "$pkgdir" -name '*.la' -delete
+}
+
+sha512sums="
+f585df97757d11be61b86061bb7ec5d0ecdcb161a962836a3fc3fa9f69948a9af5917369f3bbafff56f0799a767a8fa86eaf137c96131d39ed852e79d234dfc7  sylpheed_3.7.0.orig.tar.bz2
+"
