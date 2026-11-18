@@ -1,0 +1,26 @@
+Source: sylpheed-qtify
+Section: mail
+Priority: optional
+Maintainer: staalmannen <staal1978@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               gtk-made-qt-dev,
+               libssl-dev,
+               gettext,
+               pkgconf | pkg-config
+Standards-Version: 4.6.2
+Homepage: https://sylpheed.sraoss.jp/
+Rules-Requires-Root: no
+
+Package: sylpheed-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: sylpheed
+Conflicts: sylpheed
+Replaces: sylpheed
+Description: Sylpheed, the GTK 2 mail client, built on Qt
+ Sylpheed is a lightweight, fast e-mail client with an MH mailbox, POP3,
+ IMAP4 and SMTP (over TLS), filtering, junk mail control and an address
+ book. This package builds its unmodified GTK 2 source against GTK made
+ Qt: it runs as a Qt application without GTK.
+ .
+ The headers for Sylpheed plugins are included.

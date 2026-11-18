@@ -1,0 +1,17 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: sylpheed
+Source: https://sylpheed.sraoss.jp/
+
+Files: *
+Copyright: 1999-2017 Hiroyuki Yamamoto
+License: GPL-2+
+ On Debian systems the full text is in /usr/share/common-licenses/GPL-2.
+
+Files: libsylph/*
+Copyright: 1999-2017 Hiroyuki Yamamoto
+License: LGPL-2.1+
+ On Debian systems the full text is in /usr/share/common-licenses/LGPL-2.1.
+
+Files: debian/*
+Copyright: 2026 qtify contributors
+License: CC0-1.0
