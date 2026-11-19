@@ -1,0 +1,9 @@
+# Upstream sources for tools/build-deb.sh: Debian's copy of the Xournal
+# release, and libart and libgnomecanvas from GNOME, built into the program
+SOURCE_URL=https://deb.debian.org/debian/pool/main/x/xournal/xournal_0.4.8.2016.orig.tar.gz
+SOURCE_SHA256=1d6b2609b1e3b2873332710e4b9fa6db676b3c3983fc46cb717bf4d1955c754e
+SOURCE_COMPONENTS="libart libgnomecanvas"
+SOURCE_URL_libart=https://download.gnome.org/sources/libart_lgpl/2.3/libart_lgpl-2.3.21.tar.bz2
+SOURCE_SHA256_libart=fdc11e74c10fc9ffe4188537e2b370c0abacca7d89021d4d303afdf7fd7476fa
+SOURCE_URL_libgnomecanvas=https://download.gnome.org/sources/libgnomecanvas/2.30/libgnomecanvas-2.30.3.tar.bz2
+SOURCE_SHA256_libgnomecanvas=859b78e08489fce4d5c15c676fec1cd79782f115f516e8ad8bed6abcb8dedd40

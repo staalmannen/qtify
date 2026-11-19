@@ -1,0 +1,22 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: xournal
+Source: https://xournal.sourceforge.net/
+
+Files: *
+Copyright: 2006-2016 Denis Auroux
+License: GPL-2+
+ On Debian systems the full text is in /usr/share/common-licenses/GPL-2.
+
+Files: libart/*
+Copyright: 1998-2009 Raph Levien and the libart contributors
+License: LGPL-2+
+ On Debian systems the full text is in /usr/share/common-licenses/LGPL-2.
+
+Files: libgnomecanvas/*
+Copyright: 1997-2010 the GNOME project contributors
+License: LGPL-2+
+ On Debian systems the full text is in /usr/share/common-licenses/LGPL-2.
+
+Files: debian/*
+Copyright: 2026 qtify contributors
+License: CC0-1.0

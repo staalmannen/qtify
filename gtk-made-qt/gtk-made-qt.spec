@@ -1,8 +1,8 @@
 # RPM spec for Fedora and openSUSE.
 # Build: rpmbuild -ba --undefine=_disable_source_fetch gtk-made-qt.spec
-%global commit d7f2d7315c5cd67f14fc9054ce6821a8c62e5407
+%global commit edaf628594afacadc6f64e52314d4df45ebf6811
 %global shortcommit %(echo %{commit} | cut -c1-7)
-%global snapdate 202611181809
+%global snapdate 202611191754
 # The static archive must not hold LTO objects: programs link it with
 # whatever compiler they use.
 %global _lto_cflags %{nil}
@@ -26,6 +26,8 @@ BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(pangocairo)
+# libgailutil and gail.pc are built with ATK
+BuildRequires:  pkgconfig(atk)
 
 %description
 GTK made Qt implements the GTK C API on Qt, so GTK programs compile
@@ -44,6 +46,7 @@ Requires:       pkgconfig(glib-2.0)
 Requires:       pkgconfig(cairo)
 Requires:       pkgconfig(pango)
 Requires:       pkgconfig(pangocairo)
+Requires:       pkgconfig(atk)
 Requires:       pkgconfig
 
 %description devel
@@ -81,6 +84,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Nov 19 2026 staalmannen <staal1978@gmail.com> - 0.2.0+git202611191754.edaf628-1
+- Snapshot of gtk-made-qt at edaf628 (Xournal: GtkLayout, GtkTextLayout, devices, clipboard targets, libgailutil)
+
 * Wed Nov 18 2026 staalmannen <staal1978@gmail.com> - 0.2.0+git202611181809.d7f2d73-1
 - Snapshot of gtk-made-qt at d7f2d73 (Sylpheed: GTK 2 tree view, text anchors, pixbuf, bindings, accel map, status icon)
 

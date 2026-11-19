@@ -1,0 +1,55 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# debhelper only sets its flags when they are unset; gtk-made-qt-env puts
+# its own -L in front of these
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+DEPS := $(CURDIR)/debian/deps
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+# GCC 14 makes ttsubset's implicit read/write/close declarations errors;
+# I_det in xo-shapes.c is a GNU89 inline function
+CFLAGS := $(shell dpkg-buildflags --get CFLAGS) -Wno-error=implicit-function-declaration -fgnu89-inline
+CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS)
+export CFLAGS CPPFLAGS
+
+%:
+	dh $@
+
+# the release's configure is used as it is
+override_dh_autoreconf:
+
+# libart and libgnomecanvas: static, only for this build; Xournal finds
+# libgnomecanvas there. Xournal's 2016 configure rejects options
+# dh_auto_configure adds (--runstatedir)
+override_dh_auto_configure:
+	cd libart && ./configure --build=$(DEB_BUILD_GNU_TYPE) --prefix=$(DEPS) \
+		--disable-shared --enable-static --with-pic && $(MAKE) && $(MAKE) install
+	cd libgnomecanvas && PKG_CONFIG_PATH=$(DEPS)/lib/pkgconfig gtk-made-qt-env ./configure \
+		--build=$(DEB_BUILD_GNU_TYPE) --prefix=$(DEPS) --disable-nls \
+		--disable-shared --enable-static --with-pic && $(MAKE) && $(MAKE) install
+	# the static library needs its private dependencies (gail, pangoft2)
+	sed -i 's/^Requires.private:/Requires:/' $(DEPS)/lib/pkgconfig/libgnomecanvas-2.0.pc
+	PKG_CONFIG_PATH=$(DEPS)/lib/pkgconfig \
+	gtk-made-qt-env ./configure --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr \
+		--mandir=/usr/share/man --disable-dependency-tracking
+
+override_dh_auto_build:
+	gtk-made-qt-env dh_auto_build
+
+# starts headless with a new journal and quits
+override_dh_auto_test:
+	mkdir -p debian/test-home
+	HOME=$(CURDIR)/debian/test-home QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=2000 ./src/xournal
+
+# what upstream's desktop-install adds (without the KDE 3 mimelnk file)
+override_dh_auto_install:
+	dh_auto_install
+	install -Dm644 xournal.desktop debian/xournal-qtify/usr/share/applications/xournal.desktop
+	install -Dm644 xournal.xml debian/xournal-qtify/usr/share/mime/packages/xournal.xml
+	install -Dm644 pixmaps/xournal.svg debian/xournal-qtify/usr/share/icons/hicolor/scalable/apps/xournal.svg
+	install -Dm644 pixmaps/xoj.svg debian/xournal-qtify/usr/share/icons/hicolor/scalable/mimetypes/application-x-xoj.svg
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf debian/deps debian/test-home

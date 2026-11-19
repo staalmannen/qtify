@@ -1,0 +1,6 @@
+xournal-qtify (0.4.8.2016-1) unstable; urgency=medium
+
+  * Xournal 0.4.8.2016 built against GTK made Qt, with libart 2.3.21 and
+    libgnomecanvas 2.30.3.
+
+ -- staalmannen <staal1978@gmail.com>  Thu, 19 Nov 2026 18:00:00 +0000
