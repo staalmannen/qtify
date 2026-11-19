@@ -71,3 +71,30 @@ Historical KIMP from 1998: https://krita.org/en/posts/2009/the-history-of-kimage
 2. **Add CI screenshot verification** using `GTKQT_SCREENSHOT` and `MOTIFQT_SCREENSHOT` to automatically generate visual proof for the repository README.
 3. **Tackle `sylpheed-qt` and `transmission-qt-shim`** to harden GTK 2 and GTK 3/4 coverage respectively.
 4. **Attempt a headless build of `gimp-2.10`** (`--without-webkit` / minimal plugins) to generate a concrete list of missing `GdkPixbuf` and `GtkWidget` symbols to implement next.
+
+---
+
+## TODO: XView proof-of-concept apps
+
+The XView path in `motif-on-qt` is a thin Qt shim (`xview-on-qt`), not an ABI
+port of Sun libxview. These clients are ordered so each one forces the next
+missing package. None of them should be packaged until the shim covers the
+calls that client actually uses.
+
+### Now (matches the current subset: frame, panel, button, message, text, slider, canvas, menu, scrollbar, notice, olgx)
+
+* **`xview-hello`** (already in `motif-on-qt/examples/xview_hello.c`). Packaging smoke test: one window, panel items, olgx canvas. First `PKGBUILD` once the library installs.
+* **OpenWindows `clock`**. Small client: frame, canvas, a timer. Analog face can be olgx or plain canvas drawing. Best first *real* binary.
+* **`calctool` (XView build)**. The usual OPEN LOOK screenshot. Dense `PANEL_BUTTON` grid, a numeric display, optional choice/mode keys. Stays inside panel items; no textsw.
+* **`props` (workspace properties), reduced**. Many control types in one window (choices, sliders, text, checkboxes). Use it as a coverage driver, not as a full OpenWindows settings clone. Checkboxes and exclusive choices are the next shim items it will demand.
+
+### Next (needs packages the shim does not have yet)
+
+* **`textedit`**. The OPEN LOOK editor. Blocked on `TEXTSW` (and a scrollbar tied to it). Worth doing once panel coverage is boring.
+* **WorkMan**. Third-party CD player still remembered as an XView app. Small UI (buttons, slider, text) but needs the real Sun attribute names before an unmodified build is realistic.
+* **`cmdtool` / `shelltool`**. Terminal. Blocked on `TTY`/`TTYSW` and a pty. Last among these; little value until the rest of the panel set works.
+
+### Explicitly not POC targets
+
+* **`olwm` / `olvwm`**. Window managers. They fight the Qt platform plugin instead of exercising widgets.
+* **`mailtool` / `filemgr`**. Too large, and they need drag-and-drop, notices, and text that the shim does not have.
