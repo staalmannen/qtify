@@ -8,7 +8,8 @@ Build-Depends: debhelper-compat (= 13),
                qt6-base-dev,
                libglib2.0-dev,
                libcairo2-dev,
-               libpango1.0-dev
+               libpango1.0-dev,
+               libatk1.0-dev
 Standards-Version: 4.6.2
 Homepage: https://github.com/staalmannen/gtk-made-qt
 Rules-Requires-Root: no
@@ -33,6 +34,7 @@ Depends: libgtk-made-qt0 (= ${binary:Version}),
          libglib2.0-dev,
          libcairo2-dev,
          libpango1.0-dev,
+         libatk1.0-dev,
          pkgconf | pkg-config,
          ${misc:Depends}
 Description: GTK 1.2/2/3/4 C API on Qt 6 - development files

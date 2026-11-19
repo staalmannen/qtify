@@ -1,0 +1,81 @@
+# Maintainer: staalmannen <staal1978@gmail.com>
+# qtify: https://github.com/staalmannen/qtify
+pkgname=xournal-qtify
+pkgver=0.4.8.2016
+pkgrel=0
+_artver=2.3.21
+_canvasver=2.30.3
+pkgdesc="Xournal, the GTK 2 note taker and PDF annotator, built on Qt with GTK made Qt"
+url="https://xournal.sourceforge.net/"
+arch="all"
+license="GPL-2.0-or-later AND LGPL-2.0-or-later"
+# libgnomecanvas's configure checks for intltool
+makedepends="gtk-made-qt-dev poppler-dev zlib-dev pkgconf intltool"
+provides="xournal"
+replaces="xournal"
+# Debian's copy of the Xournal release; libart and libgnomecanvas (for
+# GTK 2, long gone from distributions) are built into the program
+source="https://deb.debian.org/debian/pool/main/x/xournal/xournal_$pkgver.orig.tar.gz
+	https://download.gnome.org/sources/libart_lgpl/2.3/libart_lgpl-$_artver.tar.bz2
+	https://download.gnome.org/sources/libgnomecanvas/2.30/libgnomecanvas-$_canvasver.tar.bz2
+	"
+# all three trees: update_config_sub works below builddir
+builddir="$srcdir"
+
+prepare() {
+	default_prepare
+	# their config.sub files do not know musl
+	update_config_sub
+	update_config_guess
+}
+
+build() {
+	local deps="$srcdir/deps"
+	# libart and libgnomecanvas: static, only for this build
+	cd "$srcdir/libart_lgpl-$_artver"
+	./configure --build=$CBUILD --host=$CHOST --prefix="$deps" \
+		--disable-shared --enable-static --with-pic
+	make
+	make install
+	cd "$srcdir/libgnomecanvas-$_canvasver"
+	PKG_CONFIG_PATH="$deps/lib/pkgconfig" gtk-made-qt-env ./configure \
+		--build=$CBUILD --host=$CHOST --prefix="$deps" \
+		--disable-nls --disable-shared --enable-static --with-pic
+	make
+	make install
+	# the static library needs its private dependencies (gail, pangoft2)
+	sed -i 's/^Requires.private:/Requires:/' "$deps"/lib/pkgconfig/libgnomecanvas-2.0.pc
+	cd "$srcdir/xournal-$pkgver"
+	# GCC 14 makes ttsubset's implicit read/write/close declarations errors;
+	# I_det in xo-shapes.c is a GNU89 inline function
+	CFLAGS="$CFLAGS -Wno-error=implicit-function-declaration -fgnu89-inline" \
+	PKG_CONFIG_PATH="$deps/lib/pkgconfig" \
+	gtk-made-qt-env ./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr
+	make
+}
+
+check() {
+	# starts headless with a new journal and quits
+	mkdir -p "$srcdir/home"
+	cd "$srcdir/xournal-$pkgver"
+	HOME="$srcdir/home" QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=2000 ./src/xournal
+}
+
+package() {
+	cd "$srcdir/xournal-$pkgver"
+	make DESTDIR="$pkgdir" install
+	# what upstream's desktop-install adds (without the KDE 3 mimelnk file)
+	install -Dm644 xournal.desktop "$pkgdir"/usr/share/applications/xournal.desktop
+	install -Dm644 xournal.xml "$pkgdir"/usr/share/mime/packages/xournal.xml
+	install -Dm644 pixmaps/xournal.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/xournal.svg
+	install -Dm644 pixmaps/xoj.svg "$pkgdir"/usr/share/icons/hicolor/scalable/mimetypes/application-x-xoj.svg
+}
+
+sha512sums="
+ba37bd675188409beb024746643dd653d414e5deea37028ee2282ae2d312c59f32ef98b340da0b16d43b696ba66893ecfd382100cf6fccc9d04d6fe047b1d213  xournal_0.4.8.2016.orig.tar.gz
+8a632a6a4da59e5e8c02ec2f5a57e36d182b325b46513765425e5f171ff9ae326af1b133725beba28f7e76654309e001aee9bace727b5b4c8589405256a3c020  libart_lgpl-2.3.21.tar.bz2
+b5bfa2133f5172abd5228d467db4d980dd4ac125cdbf55dcc1d5055dc3330861320c12cccb52ea63ba7f69824504c9d25781cd78001dc7a92b11c6f7e0c550de  libgnomecanvas-2.30.3.tar.bz2
+"

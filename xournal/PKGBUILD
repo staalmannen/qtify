@@ -1,0 +1,62 @@
+# Maintainer: staalmannen <staal1978@gmail.com>
+pkgname=xournal-qtify
+pkgver=0.4.8.2016
+pkgrel=1
+_artver=2.3.21
+_canvasver=2.30.3
+pkgdesc="Xournal, the GTK 2 note taker and PDF annotator, built on Qt with GTK made Qt"
+arch=(x86_64 aarch64)
+url="https://xournal.sourceforge.net/"
+license=(GPL-2.0-or-later LGPL-2.0-or-later)
+depends=(gtk-made-qt glib2 cairo pango poppler-glib zlib)
+# libgnomecanvas's configure checks for intltool
+makedepends=(pkgconf intltool)
+provides=(xournal)
+conflicts=(xournal)
+# Debian's copy of the Xournal release; libart and libgnomecanvas (for
+# GTK 2, long gone from distributions) are built into the program
+source=("https://deb.debian.org/debian/pool/main/x/xournal/xournal_${pkgver}.orig.tar.gz"
+        "https://download.gnome.org/sources/libart_lgpl/2.3/libart_lgpl-${_artver}.tar.bz2"
+        "https://download.gnome.org/sources/libgnomecanvas/2.30/libgnomecanvas-${_canvasver}.tar.bz2")
+sha256sums=('1d6b2609b1e3b2873332710e4b9fa6db676b3c3983fc46cb717bf4d1955c754e'
+            'fdc11e74c10fc9ffe4188537e2b370c0abacca7d89021d4d303afdf7fd7476fa'
+            '859b78e08489fce4d5c15c676fec1cd79782f115f516e8ad8bed6abcb8dedd40')
+
+build() {
+  local deps="$srcdir/deps"
+  # libart and libgnomecanvas: static, only for this build
+  cd "$srcdir/libart_lgpl-${_artver}"
+  ./configure --prefix="$deps" --disable-shared --enable-static --with-pic
+  make
+  make install
+  cd "$srcdir/libgnomecanvas-${_canvasver}"
+  PKG_CONFIG_PATH="$deps/lib/pkgconfig" gtk-made-qt-env ./configure --prefix="$deps" \
+    --disable-nls --disable-shared --enable-static --with-pic
+  make
+  make install
+  # the static library needs its private dependencies (gail, pangoft2)
+  sed -i 's/^Requires.private:/Requires:/' "$deps/lib/pkgconfig/libgnomecanvas-2.0.pc"
+  cd "$srcdir/xournal-${pkgver}"
+  # GCC 14 makes ttsubset's implicit read/write/close declarations errors;
+  # I_det in xo-shapes.c is a GNU89 inline function
+  CFLAGS+=" -Wno-error=implicit-function-declaration -fgnu89-inline"
+  PKG_CONFIG_PATH="$deps/lib/pkgconfig" gtk-made-qt-env ./configure --prefix=/usr
+  make
+}
+
+check() {
+  cd "xournal-${pkgver}"
+  # starts headless with a new journal and quits
+  mkdir -p "$srcdir/home"
+  HOME="$srcdir/home" QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=2000 ./src/xournal
+}
+
+package() {
+  cd "xournal-${pkgver}"
+  make DESTDIR="$pkgdir" install
+  # what upstream's desktop-install adds (without the KDE 3 mimelnk file)
+  install -Dm644 xournal.desktop "$pkgdir/usr/share/applications/xournal.desktop"
+  install -Dm644 xournal.xml "$pkgdir/usr/share/mime/packages/xournal.xml"
+  install -Dm644 pixmaps/xournal.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/xournal.svg"
+  install -Dm644 pixmaps/xoj.svg "$pkgdir/usr/share/icons/hicolor/scalable/mimetypes/application-x-xoj.svg"
+}

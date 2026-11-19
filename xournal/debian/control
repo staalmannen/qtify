@@ -1,0 +1,26 @@
+Source: xournal-qtify
+Section: graphics
+Priority: optional
+Maintainer: staalmannen <staal1978@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               gtk-made-qt-dev,
+               libpoppler-glib-dev,
+               zlib1g-dev,
+               intltool,
+               pkgconf | pkg-config
+Standards-Version: 4.6.2
+Homepage: https://xournal.sourceforge.net/
+Rules-Requires-Root: no
+
+Package: xournal-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: xournal
+Conflicts: xournal
+Replaces: xournal
+Description: Xournal, the GTK 2 note taker and PDF annotator, built on Qt
+ Xournal is an application for notetaking, sketching and keeping a journal
+ with a stylus or the mouse; it also annotates PDF files. This package
+ builds its unmodified GTK 2 source, with the libart and libgnomecanvas
+ libraries it draws with, against GTK made Qt: it runs as a Qt application
+ without GTK.

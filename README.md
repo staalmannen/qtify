@@ -10,7 +10,7 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 
 | Package | Built from | Arch | Alpine | Chimera | Fedora / openSUSE | Debian / Ubuntu |
 | --- | --- | --- | --- | --- | --- | --- |
-| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot d7f2d73 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
+| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot edaf628 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
 | [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 24c2cc2 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
 | [leafpad](leafpad) (GTK 2) | 0.8.19 | `PKGBUILD` | `APKBUILD` | `chimera/` | `leafpad-qtify.spec` | `debian/` |
 | [xmms](xmms) (GTK 1.2) | 1.2.11 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xmms-qtify.spec` | `debian/` |
@@ -20,6 +20,7 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 | [galculator](galculator) (GTK 3) | 2.1.4 | `PKGBUILD` | `APKBUILD` | `chimera/` | `galculator-qtify.spec` | `debian/` |
 | [ddd](ddd) (Motif + Athena) | 3.4.1 | `PKGBUILD` | `APKBUILD` | `chimera/` | `ddd-qtify.spec` | `debian/` |
 | [sylpheed](sylpheed) (GTK 2) | 3.7.0 | `PKGBUILD` | `APKBUILD` | `chimera/` | `sylpheed-qtify.spec` | `debian/` |
+| [xournal](xournal) (GTK 2) | 0.4.8.2016 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xournal-qtify.spec` | `debian/` |
 
 Applications are named `<program>-qtify` and provide / conflict with the
 original package. The libraries come in two parts where the distribution
@@ -121,7 +122,9 @@ tools/build-deb.sh xmms
 ```
 `tools/build-deb.sh` downloads the source named in `debian/qtify-source`,
 checks its SHA-256, adds `debian/` and runs `dpkg-buildpackage` (it also
-leaves a source package for a PPA or OBS).
+leaves a source package for a PPA or OBS). Extra sources (Xournal's libart
+and libgnomecanvas) are listed there as `SOURCE_COMPONENTS` and become
+component tarballs, `<source>_<version>.orig-<name>.tar.*`.
 
 ## Updating a snapshot
 

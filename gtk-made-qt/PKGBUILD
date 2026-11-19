@@ -6,7 +6,8 @@ pkgdesc="The GTK 1.2/2/3/4 C API on Qt 6: build GTK programs that run without GT
 arch=(x86_64 aarch64)
 url="https://github.com/staalmannen/gtk-made-qt"
 license=(LGPL-2.1-or-later)
-depends=(qt6-base glib2 cairo pango)
+# at-spi2-core has ATK: libgailutil and gail.pc are built with it
+depends=(qt6-base glib2 cairo pango at-spi2-core)
 makedepends=(cmake git)
 provides=(gtk-made-qt)
 conflicts=(gtk-made-qt)
