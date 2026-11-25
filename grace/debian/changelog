@@ -1,0 +1,6 @@
+grace-qtify (5.1.25-1) unstable; urgency=medium
+
+  * Grace 5.1.25 built against Motif on Qt, with its bundled Xbae and
+    T1lib.
+
+ -- staalmannen <staal1978@gmail.com>  Wed, 25 Nov 2026 19:00:00 +0000

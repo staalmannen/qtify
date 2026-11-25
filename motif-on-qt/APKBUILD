@@ -1,9 +1,9 @@
 # Maintainer: staalmannen <staal1978@gmail.com>
 # qtify: https://github.com/staalmannen/qtify
 pkgname=motif-on-qt
-pkgver=0.1_git202611180246
+pkgver=0.1_git202611251844
 pkgrel=0
-_commit=24c2cc238df7bf6d3d660425fa06dc8ac0f65fdb
+_commit=57048882e5b0db1e0f2e7f19a72818d57bfa4192
 pkgdesc="The Motif, Athena, Xt and Xlib C APIs on Qt 6: build Motif and Xaw programs without X11"
 url="https://github.com/staalmannen/motif-on-qt"
 arch="all"
@@ -38,5 +38,5 @@ dev() {
 }
 
 sha512sums="
-2006c0e276913f104134914cbc048af1add12e6fdcdedc1434d94ae33fa2155e1e6f8bc8b8d331956521db93ab608e706bfc7e5dd1e2873dad4809264e25de1e  motif-on-qt-24c2cc238df7bf6d3d660425fa06dc8ac0f65fdb.tar.gz
+2e41333a32aba048465c88646dafc8bac78b05007cc94025ed26c9c5e78c729ead524436e7db7ecd827073c244ed029bf1b056f8f4d84f4a976613f767517637  motif-on-qt-57048882e5b0db1e0f2e7f19a72818d57bfa4192.tar.gz
 "

@@ -1,0 +1,25 @@
+Source: grace-qtify
+Section: math
+Priority: optional
+Maintainer: staalmannen <staal1978@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               motif-on-qt-dev,
+               libpng-dev,
+               libjpeg-dev,
+               zlib1g-dev
+Standards-Version: 4.6.2
+Homepage: https://plasma-gate.weizmann.ac.il/Grace/
+Rules-Requires-Root: no
+
+Package: grace-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: grace
+Conflicts: grace
+Replaces: grace
+Description: Grace (xmgrace), the Motif 2D plotting tool, built on Qt
+ Grace is a WYSIWYG 2D plotting tool: line, scatter and bar plots, curve
+ fitting, transforms and publication quality output (PostScript, SVG, PNG
+ and more). This package builds its unmodified Motif source, with the
+ Xbae matrix widget it bundles, against Motif on Qt: it runs as a Qt
+ application without X11 or libXm.
