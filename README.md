@@ -21,7 +21,7 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 | [ddd](ddd) (Motif + Athena) | 3.4.1 | `PKGBUILD` | `APKBUILD` | `chimera/` | `ddd-qtify.spec` | `debian/` |
 | [sylpheed](sylpheed) (GTK 2) | 3.7.0 | `PKGBUILD` | `APKBUILD` | `chimera/` | `sylpheed-qtify.spec` | `debian/` |
 | [xournal](xournal) (GTK 2) | 0.4.8.2016 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xournal-qtify.spec` | `debian/` |
-| [grace](grace) (Motif + Xbae) | 5.1.25 | `PKGBUILD` | `APKBUILD` | `chimera/` | `grace-qtify.spec` | `debian/` |
+| [grace](grace) (Motif + Xbae) | 5.1.25 | `PKGBUILD` | none (musl, see its README) | none | `grace-qtify.spec` | `debian/` |
 
 Applications are named `<program>-qtify` and provide / conflict with the
 original package. The libraries come in two parts where the distribution

@@ -27,14 +27,15 @@ Notes on the recipes:
 - Needs motif-on-qt 5704888 or newer (bitmap clip masks, dialogs realized
   with their program classes, Manager GCs, Xt's converter functions).
 
-Built, installed and run on Ubuntu 24.04; built and installed on Chimera;
-compiled on Alpine edge, where the check stops. On musl (Alpine, Chimera)
-Grace aborts at start-up: it closes
-every file with `pclose()` and falls back to `fclose()` when that fails,
-and `pclose()` of a stream `popen()` did not open is undefined - musl
-closes it before failing, so the file is closed twice. That is Grace's
-bug (it happens with real Motif too); fixing it needs a change to Grace's
-source, which these recipes do not make yet.
+Built, installed and run on Ubuntu 24.04.
+
+No Alpine or Chimera recipe for now: on musl Grace aborts at start-up. It
+closes every file with `pclose()` and falls back to `fclose()` when that
+fails; `pclose()` of a stream `popen()` did not open is undefined, and
+musl closes it before failing, so the file is closed twice. That is
+Grace's own bug (real Motif hits it too) and needs a change to Grace's
+source, which qtify does not make. (Both recipes were written and built:
+they are in the git history, commit 653739d.)
 
 Tested (installed, Ubuntu): a data file plotted (axis labels from T1lib), the axis
 dialog with Grace's own Tab widget and its user-tick Xbae matrix, the data
