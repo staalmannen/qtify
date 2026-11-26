@@ -36,18 +36,19 @@ env = {"PKG_CONFIG_PATH": "/usr/lib/gtk-made-qt/pkgconfig"}
 options = ["!lto"]
 
 
-# the GTK client and its translations; the utilities and the web
+# the GTK client and its translations (built out of tree, in make_dir);
+# the utilities and the web
 # interface are transmission's own package
 def install(self):
-    self.make.install(wrksrc="gtk")
-    self.make.install(wrksrc="po")
+    self.make.install(wrksrc=f"{self.make_dir}/gtk")
+    self.make.install(wrksrc=f"{self.make_dir}/po")
 
 
 def check(self):
     self.do(
         "sh",
         "-c",
-        "./gtk/transmission-gtk --version 2>&1 | grep -q 'transmission-gtk 3.00'",
+        f"./{self.make_dir}/gtk/transmission-gtk --version 2>&1 | grep -q 'transmission-gtk 3.00'",
     )
     # the main window, headless, on a scratch profile
     home = self.chroot_cwd / "check-home"
@@ -56,7 +57,7 @@ def check(self):
         '{ "user-has-given-informed-consent": true }\n'
     )
     self.do(
-        "./gtk/transmission-gtk",
+        f"./{self.make_dir}/gtk/transmission-gtk",
         env={
             "XDG_CONFIG_HOME": str(home),
             "QT_QPA_PLATFORM": "offscreen",
