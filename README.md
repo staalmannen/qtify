@@ -1,6 +1,6 @@
 # qtify
 ## (pronounced cute-ify)
-A repository of package management files (for example PKGBUILD for Arch, APKBUILD for Alpine, cports templates for Chimera, ...) for rebuilding legacy GTK and Motif applications with Qt.
+A repository of package management files (for example PKGBUILD for Arch, APKBUILD for Alpine, cports templates for Chimera, ...) for rebuilding legacy GTK and Motif applications with Qt. Other graphical toolkits (FLTK, EFL, Fox, ...) might be supported in the future, but will need their own thin shim translation layers to Qt first.
 
 ## Core dependencies
 **GTK applications** are built using [gtk-made-qt](https://github.com/staalmannen/gtk-made-qt), which require GLib and Cairo in addition to the normal Qt dependencies.
