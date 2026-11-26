@@ -1,8 +1,8 @@
 # RPM spec for Fedora and openSUSE.
 # Build: rpmbuild -ba --undefine=_disable_source_fetch gtk-made-qt.spec
-%global commit edaf628594afacadc6f64e52314d4df45ebf6811
+%global commit 39b63c30223bbca3cfeb43060d7627e2e45b19e4
 %global shortcommit %(echo %{commit} | cut -c1-7)
-%global snapdate 202611191754
+%global snapdate 202611261644
 # The static archive must not hold LTO objects: programs link it with
 # whatever compiler they use.
 %global _lto_cflags %{nil}
@@ -84,6 +84,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Nov 26 2026 staalmannen <staal1978@gmail.com> - 0.2.0+git202611261644.39b63c3-1
+- Snapshot of gtk-made-qt at 39b63c3 (tree models through the interface, filter and sort models, cell renderer classes, GTK 3 pieces for Transmission; gtkrc and CSS)
+
 * Thu Nov 19 2026 staalmannen <staal1978@gmail.com> - 0.2.0+git202611191754.edaf628-1
 - Snapshot of gtk-made-qt at edaf628 (Xournal: GtkLayout, GtkTextLayout, devices, clipboard targets, libgailutil)
 

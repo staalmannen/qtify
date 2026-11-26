@@ -1,3 +1,11 @@
+motif-on-qt (0.1+git202611251844.5704888-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/motif-on-qt at 5704888
+    (Grace: bitmap clip masks, realized dialogs, Manager GCs, Xt
+    converters).
+
+ -- staalmannen <staal1978@gmail.com>  Wed, 25 Nov 2026 18:44:36 +0000
+
 motif-on-qt (0.1+git202611180246.24c2cc2-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/motif-on-qt at 24c2cc2

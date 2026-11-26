@@ -1,0 +1,39 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+# 2020 GTK code passes some objects with the wrong pointer type, which
+# GCC 14 rejects by default
+export DEB_CFLAGS_MAINT_APPEND = -Wno-error=incompatible-pointer-types
+
+# debhelper only sets its flags when they are unset; gtk-made-qt-env puts
+# its own -L in front of these
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+
+PKG = debian/transmission-gtk-qtify
+
+%:
+	dh $@
+
+# the release's configure is used as it is (autoreconf trips over its
+# conditional intltool macro)
+override_dh_autoreconf:
+
+override_dh_auto_configure:
+	gtk-made-qt-env dh_auto_configure -- --with-gtk --disable-cli --disable-daemon --disable-mac
+
+override_dh_auto_build:
+	gtk-made-qt-env dh_auto_build
+
+# the GTK client and its translations; the icons are transmission-common's
+override_dh_auto_install:
+	$(MAKE) -C gtk DESTDIR=$(CURDIR)/$(PKG) install
+	$(MAKE) -C po DESTDIR=$(CURDIR)/$(PKG) install
+	rm $(PKG)/usr/share/icons/hicolor/scalable/apps/transmission.svg
+	rm $(PKG)/usr/share/icons/hicolor/scalable/apps/transmission-devel.svg
+	rm $(PKG)/usr/share/icons/hicolor/symbolic/apps/transmission-symbolic.svg
+
+# the main window, headless, on a scratch profile
+override_dh_auto_test:
+	./gtk/transmission-gtk --version 2>&1 | grep -q 'transmission-gtk 3.00'
+	mkdir -p debian/check-home/transmission
+	echo '{ "user-has-given-informed-consent": true }' > debian/check-home/transmission/settings.json
+	XDG_CONFIG_HOME=$(CURDIR)/debian/check-home QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1500 ./gtk/transmission-gtk

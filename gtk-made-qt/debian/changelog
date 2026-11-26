@@ -1,3 +1,11 @@
+gtk-made-qt (0.2.0+git202611261644.39b63c3-1) unstable; urgency=medium
+
+  * Snapshot of https://github.com/staalmannen/gtk-made-qt at 39b63c3 (tree
+    models through the interface, filter and sort models, cell renderer
+    classes, GTK 3 pieces for Transmission; gtkrc and CSS).
+
+ -- staalmannen <staal1978@gmail.com>  Thu, 26 Nov 2026 16:44:19 +0000
+
 gtk-made-qt (0.2.0+git202611191754.edaf628-1) unstable; urgency=medium
 
   * Snapshot of https://github.com/staalmannen/gtk-made-qt at edaf628

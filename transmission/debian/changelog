@@ -1,0 +1,5 @@
+transmission-gtk-qtify (3.00-1) unstable; urgency=medium
+
+  * Transmission 3.00 (GTK interface) built against GTK made Qt.
+
+ -- staalmannen <staal1978@gmail.com>  Thu, 26 Nov 2026 12:00:00 +0000

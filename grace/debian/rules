@@ -1,0 +1,58 @@
+#!/usr/bin/make -f
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# debhelper only sets its flags when they are unset; motif-on-qt-env puts
+# its own -L in front of these
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS)
+# GCC 14 makes the implicit declarations of 2000-era code errors (and
+# hardened builds T1lib's printf (model)); C23
+# (GCC 15) reads its unprototyped functions as taking no arguments
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) -std=gnu17 \
+	-Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types -Wno-error=int-conversion \
+	-Wno-error=implicit-int -Wno-error=format-security
+
+DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+# the X headers and libraries are Motif on Qt's: the first -I / -L of
+# motif-on-qt-env are its own
+XINC := $(patsubst -I%,%,$(firstword $(shell motif-on-qt-env sh -c 'echo $$CPPFLAGS')))
+XLIB := $(patsubst -L%,%,$(firstword $(shell motif-on-qt-env sh -c 'echo $$LDFLAGS')))
+
+%:
+	dh $@
+
+# the release has a generated configure; keep it
+override_dh_autoreconf:
+
+# Grace's 2000-era configure is called itself (dh_auto_configure adds
+# options it rejects); its bundled Xbae and T1lib are used
+override_dh_auto_configure:
+	motif-on-qt-env ./configure --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr \
+		--enable-grace-home=/usr/share/grace --with-bundled-xbae --with-bundled-t1lib \
+		--disable-pdfdrv --disable-netcdf --without-fftw --disable-xmhtml \
+		--x-includes=$(XINC) --x-libraries=$(XLIB)
+
+override_dh_auto_build:
+	motif-on-qt-env dh_auto_build
+
+# starts the toolkit and prints the build: Motif, Xbae, T1lib
+override_dh_auto_test:
+	QT_QPA_PLATFORM=offscreen GRACE_HOME=$(CURDIR) ./src/xmgrace -version | grep -q 'Motif Version'
+
+# FHS places, as Debian's own grace has them: programs in /usr/bin, the
+# grace_np library and header in /usr/lib and /usr/include
+D := debian/grace-qtify
+G := $(D)/usr/share/grace
+override_dh_auto_install:
+	$(MAKE) DESTDIR=$(CURDIR)/$(D) install
+	install -d $(D)/usr/bin $(D)/usr/lib $(D)/usr/include $(D)/usr/share/man/man1
+	mv $(G)/bin/xmgrace $(G)/bin/convcal $(G)/bin/fdf2fit $(D)/usr/bin/
+	ln -s xmgrace $(D)/usr/bin/gracebat
+	ln -s xmgrace $(D)/usr/bin/grace
+	rm $(G)/bin/gracebat && rmdir $(G)/bin
+	mv $(G)/lib/libgrace_np.a $(D)/usr/lib/ && rmdir $(G)/lib
+	mv $(G)/include/grace_np.h $(D)/usr/include/ && rmdir $(G)/include
+	for m in grace xmgrace gracebat convcal; do install -m644 doc/$$m.1 $(D)/usr/share/man/man1/; done
+
+# Grace's Makefile needs configure even to clean
+override_dh_auto_clean:
+	-[ -f Make.conf ] && $(MAKE) distclean

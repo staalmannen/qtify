@@ -10,8 +10,8 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 
 | Package | Built from | Arch | Alpine | Chimera | Fedora / openSUSE | Debian / Ubuntu |
 | --- | --- | --- | --- | --- | --- | --- |
-| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot edaf628 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
-| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 24c2cc2 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
+| [gtk-made-qt](gtk-made-qt) | git master (Arch), snapshot 39b63c3 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `gtk-made-qt.spec` | `debian/` |
+| [motif-on-qt](motif-on-qt) | git master (Arch), snapshot 5704888 (others) | `PKGBUILD` | `APKBUILD` | `chimera/` | `motif-on-qt.spec` | `debian/` |
 | [leafpad](leafpad) (GTK 2) | 0.8.19 | `PKGBUILD` | `APKBUILD` | `chimera/` | `leafpad-qtify.spec` | `debian/` |
 | [xmms](xmms) (GTK 1.2) | 1.2.11 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xmms-qtify.spec` | `debian/` |
 | [xpdf3](xpdf3) (Motif) | 3.04+git20260802 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xpdf-qtify.spec` | `debian/` |
@@ -21,6 +21,8 @@ A repository of package management files (for example PKGBUILD for Arch, APKBUIL
 | [ddd](ddd) (Motif + Athena) | 3.4.1 | `PKGBUILD` | `APKBUILD` | `chimera/` | `ddd-qtify.spec` | `debian/` |
 | [sylpheed](sylpheed) (GTK 2) | 3.7.0 | `PKGBUILD` | `APKBUILD` | `chimera/` | `sylpheed-qtify.spec` | `debian/` |
 | [xournal](xournal) (GTK 2) | 0.4.8.2016 | `PKGBUILD` | `APKBUILD` | `chimera/` | `xournal-qtify.spec` | `debian/` |
+| [transmission](transmission) (GTK 3) | 3.00 | `PKGBUILD` | `APKBUILD` | `chimera/` | `transmission-gtk-qtify.spec` | `debian/` |
+| [grace](grace) (Motif + Xbae) | 5.1.25 | `PKGBUILD` | none (musl, see its README) | none | `grace-qtify.spec` | `debian/` |
 
 Applications are named `<program>-qtify` and provide / conflict with the
 original package. The libraries come in two parts where the distribution

@@ -1,0 +1,29 @@
+Source: transmission-gtk-qtify
+Section: net
+Priority: optional
+Maintainer: staalmannen <staal1978@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+               gtk-made-qt-dev,
+               intltool,
+               libcurl4-openssl-dev | libcurl-dev,
+               libevent-dev,
+               libssl-dev,
+               zlib1g-dev,
+               pkgconf | pkg-config
+Standards-Version: 4.6.2
+Homepage: https://transmissionbt.com/
+Rules-Requires-Root: no
+
+Package: transmission-gtk-qtify
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: transmission-common
+Provides: transmission-gtk
+Conflicts: transmission-gtk
+Replaces: transmission-gtk
+Description: Transmission, the BitTorrent client (GTK interface), built on Qt
+ Transmission is a BitTorrent client. This package builds its unmodified
+ GTK interface against GTK made Qt: it runs as a Qt application without GTK.
+ .
+ transmission-common has the application icons; transmission-cli and
+ transmission-daemon the remote control, the daemon and the web interface.

@@ -1,0 +1,55 @@
+# Maintainer: staalmannen <staal1978@gmail.com>
+pkgname=grace-qtify
+pkgver=5.1.25
+pkgrel=1
+pkgdesc="Grace (xmgrace), the Motif 2D plotting tool, built on Qt with Motif on Qt"
+arch=(x86_64 aarch64)
+url="https://plasma-gate.weizmann.ac.il/Grace/"
+license=(GPL-2.0-or-later)
+depends=(qt6-base libpng libjpeg-turbo zlib)
+makedepends=(motif-on-qt)
+provides=(grace)
+conflicts=(grace)
+# Debian's copy of the release; Grace's bundled Xbae and T1lib are used
+source=("https://deb.debian.org/debian/pool/main/g/grace/grace_${pkgver}.orig.tar.gz")
+sha256sums=('751ab9917ed0f6232073c193aba74046037e185d73b77bab0f5af3e3ff1da2ac')
+
+build() {
+  cd "grace-${pkgver}"
+  # X headers and libraries are Motif on Qt's (configure would look for
+  # the system's X11); the first -I / -L of motif-on-qt-env are its own
+  eval "$(motif-on-qt-env)"
+  local xinc=${CPPFLAGS%% *} xlib=${LDFLAGS%% *}
+  # GCC 14 makes the implicit declarations of 2000-era code errors (and
+  # hardened builds T1lib's printf (model)); C23
+  # (GCC 15) reads its unprototyped functions as taking no arguments
+  CFLAGS+=" -std=gnu17 -Wno-error=implicit-function-declaration -Wno-error=incompatible-pointer-types -Wno-error=int-conversion -Wno-error=implicit-int -Wno-error=format-security"
+  ./configure --prefix=/usr --enable-grace-home=/usr/share/grace \
+    --with-bundled-xbae --with-bundled-t1lib \
+    --disable-pdfdrv --disable-netcdf --without-fftw --disable-xmhtml \
+    --x-includes="${xinc#-I}" --x-libraries="${xlib#-L}"
+  make
+}
+
+check() {
+  cd "grace-${pkgver}"
+  # starts the toolkit and prints the build: Motif, Xbae, T1lib
+  QT_QPA_PLATFORM=offscreen GRACE_HOME="$PWD" ./src/xmgrace -version | grep -q 'Motif Version'
+}
+
+package() {
+  cd "grace-${pkgver}"
+  make DESTDIR="$pkgdir" install
+  # FHS places, as Debian has them: programs in /usr/bin, the grace_np
+  # library and header in /usr/lib and /usr/include
+  local g="$pkgdir/usr/share/grace"
+  install -d "$pkgdir/usr/bin" "$pkgdir/usr/lib" "$pkgdir/usr/include" "$pkgdir/usr/share/man/man1"
+  mv "$g/bin/xmgrace" "$g/bin/convcal" "$g/bin/fdf2fit" "$pkgdir/usr/bin/"
+  ln -s xmgrace "$pkgdir/usr/bin/gracebat"
+  ln -s xmgrace "$pkgdir/usr/bin/grace"
+  rm "$g/bin/gracebat"
+  rmdir "$g/bin"
+  mv "$g/lib/libgrace_np.a" "$pkgdir/usr/lib/" && rmdir "$g/lib"
+  mv "$g/include/grace_np.h" "$pkgdir/usr/include/" && rmdir "$g/include"
+  for m in grace xmgrace gracebat convcal; do install -m644 doc/$m.1 "$pkgdir/usr/share/man/man1/"; done
+}

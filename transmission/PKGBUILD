@@ -1,0 +1,44 @@
+# Maintainer: staalmannen <staal1978@gmail.com>
+pkgname=transmission-gtk-qtify
+pkgver=3.00
+pkgrel=1
+pkgdesc="Transmission, the BitTorrent client (GTK interface), built on Qt with GTK made Qt"
+arch=(x86_64 aarch64)
+url="https://transmissionbt.com/"
+license=(GPL-2.0-or-later)
+depends=(qt6-base glib2 cairo pango curl libevent openssl zlib)
+makedepends=(gtk-made-qt intltool pkgconf)
+optdepends=('transmission-cli: transmission-remote, the daemon and the web interface')
+provides=(transmission-gtk)
+conflicts=(transmission-gtk)
+# Debian's copy of the release
+source=("https://deb.debian.org/debian/pool/main/t/transmission/transmission_${pkgver}.orig.tar.xz")
+sha256sums=('9144652fe742f7f7dd6657716e378da60b751aaeda8bef8344b3eefc4db255f2')
+
+build() {
+  cd "transmission-${pkgver}"
+  # 2020 GTK code passes some objects with the wrong pointer type, which
+  # GCC 14 rejects by default (the real GTK headers give the same warnings)
+  CFLAGS="$CFLAGS -Wno-error=incompatible-pointer-types" gtk-made-qt-env ./configure --prefix=/usr \
+    --with-gtk --disable-cli --disable-daemon --disable-mac
+  gtk-made-qt-env make
+}
+
+check() {
+  cd "transmission-${pkgver}"
+  ./gtk/transmission-gtk --version 2>&1 | grep -q 'transmission-gtk 3.00'
+  # the main window, headless, on a scratch profile
+  local home="$srcdir/check-home"
+  mkdir -p "$home/transmission"
+  echo '{ "user-has-given-informed-consent": true }' > "$home/transmission/settings.json"
+  XDG_CONFIG_HOME="$home" QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1500 ./gtk/transmission-gtk
+}
+
+package() {
+  cd "transmission-${pkgver}"
+  # the GTK client and its translations; the utilities and the web
+  # interface are transmission-cli's
+  make -C gtk DESTDIR="$pkgdir" install
+  make -C po DESTDIR="$pkgdir" install
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
