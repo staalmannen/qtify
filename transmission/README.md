@@ -17,7 +17,17 @@ Notes on the recipes:
   warnings), which GCC 14 makes an error.
 - Needs gtk-made-qt 39b63c3 or newer (tree models through the interface,
   filter and sort models, cell renderer classes, the icon theme, tooltips).
-- The check starts the client headless on a scratch profile and quits.
+- The check starts the client headless on a scratch profile and quits; it
+  also checks `--version`, except on Chimera: main.c hands GLib's option
+  parser a 1-byte `bool` for `--version` where GLib stores a 4-byte
+  `gboolean`, and with clang's stack layout that overwrites a pointer
+  (`transmission-gtk --version` crashes there whatever the toolkit).
+- Chimera builds out of tree: the template installs from `build/gtk` and
+  `build/po`; `!lintpixmaps` because upstream installs a pixmap as well.
+
+Built and checked: Ubuntu 24.04 (.deb, installed and run), RPM (rpmbuild
+on the same machine), Alpine 3.24 and Chimera (packages installed and run
+headless).
 
 Tested (GTK made Qt, headless, compared with the same program on real
 GTK 3 under Xvfb): adding torrents (the options dialog with its file tree),
