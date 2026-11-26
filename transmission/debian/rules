@@ -33,7 +33,7 @@ override_dh_auto_install:
 
 # the main window, headless, on a scratch profile
 override_dh_auto_test:
-	./gtk/transmission-gtk --version | grep -q 'transmission-gtk 3.00'
+	./gtk/transmission-gtk --version 2>&1 | grep -q 'transmission-gtk 3.00'
 	mkdir -p debian/check-home/transmission
 	echo '{ "user-has-given-informed-consent": true }' > debian/check-home/transmission/settings.json
 	XDG_CONFIG_HOME=$(CURDIR)/debian/check-home QT_QPA_PLATFORM=offscreen GTKQT_AUTOQUIT=1500 ./gtk/transmission-gtk

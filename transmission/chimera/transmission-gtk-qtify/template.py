@@ -47,7 +47,7 @@ def check(self):
     self.do(
         "sh",
         "-c",
-        "./gtk/transmission-gtk --version | grep -q 'transmission-gtk 3.00'",
+        "./gtk/transmission-gtk --version 2>&1 | grep -q 'transmission-gtk 3.00'",
     )
     # the main window, headless, on a scratch profile
     home = self.chroot_cwd / "check-home"

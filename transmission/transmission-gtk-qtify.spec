@@ -51,7 +51,7 @@ rm %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps/transmission-symbolic.svg
 %find_lang transmission-gtk
 
 %check
-./gtk/transmission-gtk --version | grep -q 'transmission-gtk 3.00'
+./gtk/transmission-gtk --version 2>&1 | grep -q 'transmission-gtk 3.00'
 # the main window, headless, on a scratch profile
 mkdir -p check-home/transmission
 echo '{ "user-has-given-informed-consent": true }' > check-home/transmission/settings.json
